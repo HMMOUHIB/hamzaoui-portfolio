@@ -1,0 +1,6 @@
+/*
+ * Formerly the site-wide pink ⇄ violet pulse. The paper redesign has no glow and no neon: the two accent
+ * tokens are pinned to the sticker red and the ink, so everything that still reads them is flat print.
+ * Loaded after every component stylesheet (see main.jsx).
+ */
+:root { --glow: var(--crimson); --glow-b: var(--black); }

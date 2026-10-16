@@ -1,0 +1,71 @@
+.tf {
+  position: relative; height: 100svh; min-height: 560px; overflow: hidden; background: var(--ink-fixed);
+  width: 100vw; /* the pin freezes the width; without this it loses the rail side to the negative margin */
+  display: grid; place-items: center;
+  margin: calc(-1 * clamp(6rem, 14vh, 10rem)) calc(-1 * (var(--gutter) + var(--rail))) clamp(5rem, 12vh, 9rem) calc(-1 * var(--gutter));
+}
+/* bleach3's hollow discs drifting through the dark behind the figure */
+.tf__hollows { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; }
+.tf__glow {
+  position: absolute; left: 50%; top: 55%; width: 90vmin; height: 90vmin; translate: -50% -50%;
+  border-radius: 50%; background: radial-gradient(circle at 50% 50%, rgba(242, 35, 27, 0.35), rgba(242, 35, 27, 0.06) 42%, transparent 64%);
+  opacity: 0.35;
+}
+.tf__stages {
+  position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none;
+}
+.tf__stage-word {
+  grid-area: 1 / 1; font-family: var(--f-display); font-weight: 900; font-variation-settings: 'wdth' 125; text-transform: uppercase;
+  font-size: clamp(2.2rem, 8vw, 9rem); line-height: 1; letter-spacing: -0.02em; color: transparent; white-space: nowrap;
+  -webkit-text-stroke: 1px rgba(236, 236, 236, 0.4);
+}
+.tf__stage-word:nth-child(2) { -webkit-text-stroke-color: var(--crimson); }
+.tf__stage-word:nth-child(3) { -webkit-text-stroke-color: var(--paper-fixed); }
+
+.tf__figure { position: relative; z-index: 2; height: 79svh; aspect-ratio: 598 / 1059; max-width: 60vw; }
+.tf__figure .pf { position: absolute; inset: 0; }
+/* the headset's bloom, screened over the B&W portrait and breathing like the render's studio light */
+.tf__halo {
+  position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; pointer-events: none;
+  object-fit: contain; object-position: 50% 100%; mix-blend-mode: screen; opacity: 0.8;
+  animation: tf-halo 3.2s ease-in-out infinite alternate;
+}
+@keyframes tf-halo { from { opacity: 0.45; } to { opacity: 1; } }
+.tf__strips { position: absolute; inset: 0; pointer-events: none; }
+.tf__strip {
+  position: absolute; inset: 0; opacity: 0;
+  background: var(--src) 50% 100% / contain no-repeat;
+  filter: grayscale(1) contrast(1.2);
+}
+.tf__shade {
+  position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.92) 70%);
+  -webkit-mask: var(--src) 50% 100% / contain no-repeat;
+  mask: var(--src) 50% 100% / contain no-repeat;
+}
+.tf__mask {
+  position: absolute; z-index: 3; width: 42%; right: -34%; top: 20%;
+  opacity: 0; filter: drop-shadow(0 0 24px rgba(179, 18, 31, 0.45));
+}
+.tf__particles { position: absolute; inset: 0; z-index: 4; width: 100%; height: 100%; pointer-events: none; }
+.tf__flash {
+  position: absolute; left: 0; right: 0; top: 50%; height: 2px; z-index: 5; background: var(--crimson);
+  transform: scaleX(0);
+}
+.tf__caption {
+  position: absolute; z-index: 5; left: var(--gutter); bottom: 2rem; max-width: 22rem;
+  font-size: var(--step--1); color: #bdbdbd;
+}
+.tf__caption span { display: block; color: var(--paper-fixed); margin-top: 0.3rem; font-weight: 700; }
+
+/* Static (reduced motion) composition: show the end state. */
+.tf:not(.is-animated) .tf__mask { opacity: 1; transform: rotate(6deg); }
+.tf:not(.is-animated) .tf__hollows { opacity: 0.2; }
+.tf:not(.is-animated) .tf__stage-word:not(:nth-child(3)) { display: none; }
+.tf.is-animated .tf__strip { opacity: 1; }
+.tf.is-animated .tf__stage-word:not(:first-child) { opacity: 0; visibility: hidden; }
+
+@media (max-width: 899px) {
+  .tf__figure { height: 63svh; }
+  .tf__mask { width: 55%; right: -30%; top: 12%; }
+}

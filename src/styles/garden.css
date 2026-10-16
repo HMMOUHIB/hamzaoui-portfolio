@@ -1,0 +1,18 @@
+/* Garden titles: canvases overhang the heading (em-based, so they scale with the type) */
+.garden { position: relative; isolation: isolate; }
+.garden .split { position: relative; z-index: 1; }
+.garden__cv {
+  position: absolute; left: -0.5em; top: -1.15em; z-index: 0; pointer-events: none;
+  width: calc(100% + 1em); height: calc(100% + 1.7em);
+}
+.garden__cv--front { z-index: 2; }
+
+/* One display face per title; the .split.display selector beats the global extended-black rule */
+.garden--hello, .garden--hello .split.display { font-family: 'Abril Fatface', var(--f-display); font-weight: 400; font-variation-settings: normal; text-transform: none; letter-spacing: 0; }
+.garden--education, .garden--education .split.display { font-family: 'Fraunces', var(--f-display); font-weight: 900; font-variation-settings: normal; text-transform: none; letter-spacing: -0.01em; }
+.garden--mind, .garden--mind .split.display { font-family: 'Shrikhand', var(--f-display); font-weight: 400; font-variation-settings: normal; text-transform: none; letter-spacing: 0; line-height: 1.05; }
+.garden--arsenal, .garden--arsenal .split.display { font-family: 'Bagel Fat One', var(--f-display); font-weight: 400; font-variation-settings: normal; text-transform: none; letter-spacing: 0.01em; line-height: 1; }
+.garden--work, .garden--work .split.display { font-family: 'Rozha One', var(--f-display); font-weight: 400; font-variation-settings: normal; text-transform: none; letter-spacing: 0; }
+.garden--evolution, .garden--evolution .split.display { font-family: 'Gloock', var(--f-display); font-weight: 400; font-variation-settings: normal; text-transform: none; letter-spacing: 0; }
+.garden--nextworld, .garden--nextworld .split.display { font-family: 'Cormorant Garamond', var(--f-display); font-style: italic; font-weight: 700; font-variation-settings: normal; text-transform: none; letter-spacing: 0; line-height: 1; }
+.garden--role, .garden--role .split.display { font-family: 'Playfair Display', var(--f-display); font-style: italic; font-weight: 900; font-variation-settings: normal; text-transform: none; letter-spacing: 0; line-height: 1.05; }

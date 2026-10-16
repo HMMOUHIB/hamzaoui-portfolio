@@ -1,0 +1,126 @@
+/*
+ * Commission-style ID card, transparent, lit by the same pink → violet pulse as the hero name echo.
+ * --glow / --glow-b come from the site-wide pulse (pulse.css); every coloured part reads from them,
+ * so the border, circles, doodles and initials all change together. Sizes use container units.
+ */
+.idcard {
+  container-type: inline-size;
+  position: relative; width: 100%; aspect-ratio: 500 / 320; overflow: hidden;
+  display: flex; flex-direction: column;
+  background: none;
+  color: var(--paper); font-family: var(--f-sans);
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.9);
+  border: 1.5px solid var(--glow); border-radius: 0.5rem;
+  box-shadow:
+    0 0 6px var(--glow), 0 0 18px var(--glow-b),
+    inset 0 0 6px color-mix(in srgb, var(--glow) 55%, transparent),
+    inset 0 0 22px color-mix(in srgb, var(--glow-b) 30%, transparent);
+}
+.idcard__doodles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.idcard__doodles path { fill: none; stroke: var(--glow); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7; }
+
+/* The name-echo effect: hollow glyphs, stroke in the pulsing glow colour, soft halo */
+.idcard__word, .idcard__native, .idcard__name, .idcard__tag, .idcard__code {
+  color: transparent; -webkit-text-stroke: 0.6px var(--glow); text-shadow: none;
+  filter: drop-shadow(0 0 2px var(--glow));
+}
+
+/* Title band */
+.idcard__title {
+  position: relative; margin: 0; display: flex; flex-wrap: nowrap; align-items: baseline; gap: 0 1.3cqw;
+  padding: 2.4cqw 3.6cqw 1.4cqw; font-size: 4.3cqw; font-weight: 800; line-height: 1; letter-spacing: -0.005em;
+  text-transform: uppercase; font-variation-settings: 'wdth' 100; white-space: nowrap;
+  border-bottom: 1px solid color-mix(in srgb, var(--glow) 55%, transparent);
+}
+/* Title: solid white letters wearing the pulsing border — readable on any backdrop; initials get the opposite hue */
+.idcard__word { color: #fff; -webkit-text-stroke: 1px var(--glow); filter: drop-shadow(0 0 4px var(--glow)); }
+.idcard__word b { font-size: 1.32em; font-weight: 900; color: #fff; -webkit-text-stroke: 1.2px var(--glow-b); }
+.idcard__word--small { font-size: 0.8em; }
+
+/* Body */
+.idcard__body {
+  position: relative; flex: 1; min-height: 0;
+  display: grid; grid-template-columns: 22cqw minmax(0, 1fr) 15cqw; gap: 3.4cqw; align-items: start;
+  padding: 3cqw 3.6cqw 0;
+}
+.idcard__photo {
+  margin: 0; border: 0.9cqw solid var(--glow); aspect-ratio: 4 / 5; overflow: hidden;
+  box-shadow: 0 0 10px var(--glow), 0 0 22px color-mix(in srgb, var(--glow-b) 60%, transparent);
+}
+.idcard__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
+
+/* Information column: chip → display name → kanji → ruled contact rows, same voice as the hero */
+.idcard__info { min-width: 0; padding-top: 0.4cqw; display: flex; flex-direction: column; }
+.idcard__tag {
+  align-self: flex-start; margin: 0; padding: 0.6cqw 1.8cqw; font-size: 2cqw; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;
+  border: 1px solid var(--glow); border-radius: 99px; box-shadow: 0 0 6px color-mix(in srgb, var(--glow) 60%, transparent), inset 0 0 6px color-mix(in srgb, var(--glow) 35%, transparent);
+}
+.idcard__name {
+  margin: 1.6cqw 0 0; display: flex; flex-flow: row wrap; gap: 0 1.6cqw;
+  font-family: var(--f-display); font-weight: 900; text-transform: uppercase; font-size: 6.6cqw; line-height: 0.9; letter-spacing: 0.005em;
+  -webkit-text-stroke-width: 0.8px;
+}
+.idcard__native { margin: 1.2cqw 0 0; font-family: var(--f-jp); font-weight: 700; font-size: 2.6cqw; letter-spacing: 0.34em; white-space: nowrap; }
+.idcard__lines { margin: 1.6cqw 0 0; padding: 0; }
+.idcard__line {
+  display: grid; grid-template-columns: 16.5cqw minmax(0, 1fr); align-items: center; gap: 1.5cqw; padding: 0.45cqw 0;
+  border-top: 1px solid color-mix(in srgb, var(--glow) 40%, transparent); font-size: 2.1cqw; line-height: 1.2; color: #fff; text-shadow: none;
+}
+/* Labels and links: solid white, upper-case, each led by a glowing round icon */
+.idcard__line dt { margin: 0; display: flex; align-items: center; gap: 1.2cqw; font-size: 1.9cqw; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.idcard__line dd { margin: 0; overflow-wrap: anywhere; text-transform: none; font-weight: 500; }
+.idcard__ico {
+  flex: none; width: 3.2cqw; height: 3.2cqw; display: grid; place-items: center; font-size: 1.65cqw;
+  border: 1px solid var(--glow); border-radius: 50%;
+  box-shadow: 0 0 5px var(--glow), inset 0 0 4px color-mix(in srgb, var(--glow) 50%, transparent);
+}
+.idcard__line a { color: #fff; text-decoration: none; background: linear-gradient(var(--glow), var(--glow)) 0 100% / 0 1px no-repeat; transition: background-size 0.5s var(--ease-cine); }
+.idcard__line a:hover, .idcard__line a:focus-visible { background-size: 100% 1px; }
+
+/* Seal — circles are drawn in the glow colours, no filled disc behind them */
+.idcard__seal { position: relative; width: 100%; aspect-ratio: 1; margin-top: 0.4cqw; }
+.idcard__seal-ring { width: 100%; height: 100%; animation: idcard-spin 26s linear infinite; filter: drop-shadow(0 0 3px var(--glow)); }
+.idcard__seal-red { fill: none; stroke: var(--glow); stroke-width: 2.5; }
+.idcard__seal-black { fill: none; stroke: var(--glow-b); stroke-width: 1.2; }
+.idcard__seal-text { fill: none; stroke: var(--glow); stroke-width: 0.35; font-size: 7.4px; letter-spacing: 1.4px; text-transform: uppercase; font-weight: 700; text-shadow: none; }
+.idcard__seal-core { fill: #fff; stroke: var(--glow); stroke-width: 2; }
+.idcard__seal-logo { position: absolute; inset: 0; display: grid; place-items: center; }
+.idcard__seal-logo img { width: 46%; height: 46%; object-fit: contain; }
+@keyframes idcard-spin { to { transform: rotate(360deg); } }
+
+/* Barcode */
+.idcard__foot { position: relative; display: flex; align-items: flex-end; gap: 2cqw; padding: 0 3.6cqw 2.6cqw 3.6cqw; height: 11cqw; }
+.idcard__barcode { display: flex; align-items: flex-end; height: 100%; flex: 1; overflow: hidden; }
+.idcard__barcode i { display: block; height: 100%; background: var(--paper); opacity: 0.8; }
+.idcard__code { font-size: 4cqw; font-weight: 700; letter-spacing: 0.06em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .idcard__seal-ring { animation: none; }
+}
+
+/* Foil shine — swept across once by the hero's reward reveal */
+.idcard__shine {
+  position: absolute; inset: 0; z-index: 4; pointer-events: none; mix-blend-mode: screen;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.35) 45%, rgba(255, 120, 200, 0.45) 52%, rgba(184, 77, 255, 0.4) 58%, transparent 70%);
+  transform: translateX(-140%);
+}
+
+/* Tall variant (Origin section): portrait card that fills the column height, photo big, info below */
+.idcard--tall { aspect-ratio: 4 / 5; }
+.idcard--tall .idcard__title { font-size: 4.2cqw; padding-top: 3cqw; padding-bottom: 2cqw; }
+.idcard--tall .idcard__body {
+  grid-template-columns: minmax(0, 1fr) 24cqw; grid-template-areas: "photo seal" "info info";
+  grid-template-rows: auto 1fr; gap: 3cqw 3.4cqw; padding-top: 3.6cqw;
+}
+.idcard--tall .idcard__photo { grid-area: photo; aspect-ratio: 16 / 10; }
+.idcard--tall .idcard__photo img { object-position: 50% 18%; }
+.idcard--tall .idcard__seal { grid-area: seal; align-self: end; margin: 0; }
+.idcard--tall .idcard__info { grid-area: info; padding-top: 0; }
+.idcard--tall .idcard__tag { font-size: 2.6cqw; padding: 0.8cqw 2.2cqw; }
+.idcard--tall .idcard__name { gap: 0 2.4cqw; font-size: 10.5cqw; margin-top: 2.2cqw; }
+.idcard--tall .idcard__native { font-size: 3.1cqw; margin-top: 1.6cqw; }
+.idcard--tall .idcard__lines { margin-top: 2.6cqw; }
+.idcard--tall .idcard__line { grid-template-columns: 22cqw minmax(0, 1fr); padding: 1cqw 0; font-size: 2.9cqw; }
+.idcard--tall .idcard__line dt { font-size: 2.3cqw; gap: 1.6cqw; }
+.idcard--tall .idcard__ico { width: 4.8cqw; height: 4.8cqw; font-size: 2.4cqw; }
+.idcard--tall .idcard__foot { height: 13cqw; }

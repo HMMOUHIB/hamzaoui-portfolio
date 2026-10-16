@@ -1,0 +1,49 @@
+/* Masthead (after mainref.mp4) */
+.mast {
+  /* PORTF◯LIO fills the column: the row measures 7.59em; 7.8 leaves room for a desktop scrollbar inside 100vw */
+  --word: calc((100vw - var(--gutter) * 2 - var(--rail)) / 7.8);
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center;
+  padding: clamp(6.5rem, 15vh, 9.5rem) calc(var(--gutter) + var(--rail)) clamp(2.5rem, 6vh, 4.5rem) var(--gutter);
+}
+.mast__kickers {
+  width: 100%; display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; position: relative; z-index: 1;
+  font-weight: 800; font-variation-settings: 'wdth' 125; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1.1;
+  font-size: calc(var(--word) * 0.13); margin-bottom: calc(var(--word) * -0.02);
+}
+.mast__word { width: 100%; }
+.mast__role { display: inline-block; font-size: calc(var(--word) * 0.2); }
+.mast__letters { display: flex; justify-content: center; align-items: center; font-size: var(--word); }
+.mast__letters .display { line-height: 0.9; position: relative; z-index: 1; } /* letters over the star's points, as in logo2 */
+
+/* The ink head in its star badge stands in for the O, bigger than the letters */
+.mast__head { position: relative; display: block; width: 1.06em; height: 0.9em; margin: 0 0.02em; flex: none; }
+.mast__face {
+  position: absolute; left: 50%; top: 50%; width: 1.45em; max-width: none; height: auto; translate: -50% -50%;
+  filter: drop-shadow(0.035em 0.03em 0 var(--crimson)); /* red print offset, like the stickers */
+  user-select: none;
+}
+.mast__face--b { visibility: hidden; opacity: 0; }
+
+/* Handwritten signature with its arrow, under the head */
+.mast__sign {
+  position: absolute; left: 62%; top: calc(100% + 0.06em); display: flex; align-items: flex-start; gap: 0.15em;
+  font-size: 0.17em; color: var(--black); pointer-events: none;
+}
+.mast__arrow { width: 1.1em; height: 1.5em; flex: none; overflow: visible; }
+.mast__arrow path { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.mast__name {
+  margin-top: 0.75em; font-family: var(--f-hand); font-weight: 500; font-size: 1.15em; line-height: 1; white-space: nowrap; rotate: -5deg;
+  text-transform: none; letter-spacing: 0;
+}
+
+.mast__dingbats { font-size: clamp(1.4rem, 2.6vw, 2.8rem); margin-top: calc(var(--word) * 0.62); }
+.mast__ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: clamp(1.75rem, 4vh, 2.5rem); }
+
+@media (max-width: 899px) {
+  .mast { padding-top: 6rem; }
+  .mast__kickers { font-size: 0.7rem; margin-bottom: calc(var(--word) * 0.32); } /* the star's top point clears the kicker line */
+  .mast__sign { font-size: 0.24em; left: 48%; }
+  .mast__dingbats { margin-top: calc(var(--word) * 1.2); }
+  .mast__ctas { width: 100%; flex-direction: column; }
+  .mast__ctas .btn { width: 100%; }
+}

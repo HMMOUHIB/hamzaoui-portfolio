@@ -1,0 +1,45 @@
+.pf { position: relative; height: 100%; width: 100%; }
+.pf__img {
+  position: relative; z-index: 1; width: 100%; height: 100%;
+  object-fit: contain; object-position: 50% 100%;
+  filter: grayscale(1) contrast(1.14) brightness(0.92);
+  user-select: none;
+}
+.pf__rim, .pf__scan {
+  position: absolute; inset: 0; pointer-events: none;
+  -webkit-mask: var(--pf-src) 50% 100% / contain no-repeat;
+  mask: var(--pf-src) 50% 100% / contain no-repeat;
+}
+/* Crimson rim light: a red copy of the silhouette, offset and softened. */
+.pf__rim { z-index: 0; background: var(--crimson-hi); translate: -5px -3px; filter: blur(2px); opacity: 0.85; }
+.pf__rim--blue { background: var(--blue-hi); translate: 5px -2px; opacity: 0.8; }
+.pf__scan {
+  z-index: 2; opacity: 0.35;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0 1px, transparent 1px 3px);
+}
+
+.pf--portrait .pf__img { object-fit: cover; object-position: 50% 0%; filter: grayscale(1) contrast(1.2) brightness(0.85); }
+.pf--portrait .pf__rim, .pf--portrait .pf__scan {
+  -webkit-mask-size: cover; mask-size: cover; -webkit-mask-position: 50% 0%; mask-position: 50% 0%;
+}
+.pf--portrait .pf__rim { translate: 6px 0; opacity: 0.7; }
+
+.pf--silhouette .pf__img { filter: brightness(0); }
+.pf--silhouette .pf__rim { translate: -3px -2px; filter: none; opacity: 1; }
+.pf--silhouette .pf__scan { display: none; }
+
+.pf--core .pf__img { object-fit: cover; object-position: 50% 50%; filter: contrast(1.06) saturate(1.05); }
+.pf--core .pf__rim, .pf--core .pf__scan {
+  -webkit-mask-size: cover; mask-size: cover; -webkit-mask-position: 50% 50%; mask-position: 50% 50%;
+}
+.pf--core .pf__rim { translate: -4px -2px; filter: blur(3px); opacity: 0.9; }
+.pf--core .pf__rim--blue { translate: 4px -2px; opacity: 0.85; }
+.pf--core .pf__scan { display: none; }
+
+.pf--calm .pf__img { filter: grayscale(0.9) contrast(0.95) brightness(0.72); }
+.pf--calm .pf__rim { opacity: 0.25; filter: blur(6px); }
+.pf--calm .pf__scan { opacity: 0.15; }
+
+.pf--portrait .pf__rim--blue { translate: -6px 0; opacity: 0.55; }
+.pf--silhouette .pf__rim--blue { translate: 3px -2px; }
+.pf--calm .pf__rim--blue { opacity: 0.3; }

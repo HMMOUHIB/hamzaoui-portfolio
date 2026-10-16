@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 1200" width="500" height="1200">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2a2a2a"/>
+      <stop offset=".45" stop-color="#8d8a85"/>
+      <stop offset=".62" stop-color="#5a5855"/>
+      <stop offset="1" stop-color="#1c1c1c"/>
+    </linearGradient>
+  </defs>
+  <!-- Original placeholder silhouette. Replace with src/assets/profile.png -->
+  <g fill="url(#g)">
+    <ellipse cx="250" cy="150" rx="62" ry="78"/>
+    <path d="M222 215h56l6 45h-68z"/>
+    <path d="M150 262c30-14 60-20 100-20s70 6 100 20c30 14 44 40 50 80l28 300c3 30-8 44-26 46l-18-2-30-300-8 150 26 380h-78l-40-440-40 440h-78l26-380-8-150-30 300-18 2c-18-2-29-16-26-46l28-300c6-40 20-66 50-80z"/>
+      </g>
+</svg>

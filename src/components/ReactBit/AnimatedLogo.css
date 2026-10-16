@@ -1,0 +1,47 @@
+.alogo { display: block; width: 6.5rem; height: 6.5rem; overflow: visible; } /* no glow, no shadow */
+
+.alogo__ring { transform-origin: 60px 60px; fill: none; }
+.alogo__ring circle:first-child { stroke: url(#alogo-grad); stroke-width: 1.4; }
+.alogo__ring--a { animation: alogo-spin 22s linear infinite; }
+.alogo__ring--a circle:first-child { stroke-dasharray: 3 7 60 7; }
+.alogo__ring--b { animation: alogo-spin 30s linear infinite reverse; }
+.alogo__ring--b circle { stroke-width: 0.9; stroke-dasharray: 90 12 20 12; opacity: 0.8; }
+.alogo__spark { fill: var(--paper); stroke: none; }
+@keyframes alogo-spin { to { transform: rotate(360deg); } }
+
+.alogo__hm { fill: none; stroke: url(#alogo-grad); stroke-width: 5.5; stroke-linecap: square; stroke-linejoin: miter; }
+.alogo__hm path { stroke-dasharray: 220; stroke-dashoffset: 220; }
+.alogo__slash { fill: none; stroke: var(--paper); stroke-width: 3; stroke-linecap: round; opacity: 0; }
+
+/* Letters draw in, the slash snaps on, then the whole mark breathes */
+.alogo.is-in .alogo__hm path { animation: alogo-draw 1.5s var(--ease-cine) forwards; }
+.alogo.is-in .alogo__hm path:nth-child(2) { animation-delay: 0.45s; }
+.alogo.is-in .alogo__slash { animation: alogo-slash 0.4s 1.7s ease-out forwards; }
+.alogo.is-in { animation: alogo-breathe 3.4s 2.2s ease-in-out infinite; }
+@keyframes alogo-draw { to { stroke-dashoffset: 0; } }
+@keyframes alogo-slash { from { opacity: 0; transform: translate(-6px, 6px); } to { opacity: 1; transform: none; } }
+@keyframes alogo-breathe { 50% { scale: 1.06; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .alogo__ring, .alogo.is-in { animation: none; }
+  .alogo__hm path { stroke-dashoffset: 0; animation: none; }
+  .alogo__slash { opacity: 1; }
+}
+
+/* On white paper the light accents turn to ink */
+.alogo--ink .alogo__spark { fill: var(--black); }
+.alogo--ink .alogo__slash { stroke: var(--black); }
+
+/* Neon: a white-hot tube with pink rings, drawn flat (no halo) */
+.alogo--neon .alogo__ring circle:first-child { stroke: var(--glow); stroke-width: 1.6; }
+.alogo--neon .alogo__ring--b circle { stroke: var(--glow-b); }
+.alogo--neon .alogo__spark { fill: #fff; }
+.alogo--neon .alogo__hm { stroke: #fff; stroke-width: 4.4; }
+.alogo--neon .alogo__slash { stroke: var(--glow); }
+/* after the letters are drawn the tube flickers like fire-lit neon */
+.alogo--neon.is-in .alogo__hm { animation: alogo-flicker 3.6s 2.4s infinite; }
+@keyframes alogo-flicker {
+  0%, 18%, 22%, 62%, 66%, 100% { opacity: 1; }
+  20% { opacity: 0.78; } 64% { opacity: 0.6; } 68% { opacity: 0.9; } 70% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .alogo--neon.is-in .alogo__hm { animation: none; } }

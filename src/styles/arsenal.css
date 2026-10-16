@@ -1,0 +1,115 @@
+.arsenal { overflow: hidden; }
+.arsenal__body {
+  display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 4fr) minmax(0, 4fr);
+  gap: clamp(1.5rem, 3vw, 4rem); align-items: center;
+}
+.arsenal__tabs { display: grid; gap: 0.25rem; }
+.arsenal__tab {
+  display: grid; grid-template-columns: 2rem 1fr; align-items: baseline; gap: 0.5rem;
+  padding: 0.55rem 0; text-align: left; border-bottom: 1px solid var(--line);
+  color: color-mix(in srgb, var(--black) 32%, transparent); transition: color 0.4s;
+}
+.arsenal__tab-idx { font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+.arsenal__tab-name {
+  font-family: var(--f-display); font-weight: 900; font-variation-settings: 'wdth' 125; text-transform: uppercase;
+  font-size: clamp(1.1rem, 1.9vw, 2rem); line-height: 1; letter-spacing: -0.02em; transition: transform 0.5s var(--ease-cine);
+}
+.arsenal__tab:hover { color: color-mix(in srgb, var(--black) 65%, transparent); }
+.arsenal__tab.is-active { color: var(--black); }
+.arsenal__tab.is-active .arsenal__tab-name { transform: translateX(0.5rem); }
+.arsenal__tab.is-active .arsenal__tab-idx { color: var(--crimson); }
+
+.arsenal__core { position: relative; aspect-ratio: 1; width: 100%; max-width: 30rem; justify-self: center; }
+.arsenal__core { isolation: isolate; }
+
+/* The watch (inspired by Ben 10's Omnitrix): strap, chunky bezel that turns, green LED, hologram faceplate */
+.omni { --omni: #45f53a; --omni-hi: #c4ffad; --omni-deep: #06210b; }
+/* the band runs up and down behind the dial, clear of the tab list and the skill list */
+.omni__strap { position: absolute; left: -16%; top: 30%; width: 132%; max-width: none; height: 40%; z-index: -1; overflow: visible; rotate: 90deg; }
+.omni__band { fill: #2a2e2a; stroke: var(--ink-fixed); stroke-width: 5; }
+.omni__band-inset { fill: #3a403a; stroke: var(--ink-fixed); stroke-width: 3; }
+.omni__band-link { stroke: rgba(0, 0, 0, 0.45); stroke-width: 3; }
+.omni__light { fill: var(--omni); stroke: var(--ink-fixed); stroke-width: 3; animation: omni-blink 2.4s ease-in-out infinite; }
+
+.omni__bezel { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.omni__rot { transform-origin: 200px 200px; transform: rotate(var(--rot)); transition: transform 1.1s var(--ease-cine); }
+.omni__ring { fill: #4a504a; stroke: var(--ink-fixed); stroke-width: 6; }
+.omni__grip { fill: #2c312c; stroke: var(--ink-fixed); stroke-width: 3; }
+.omni__notch { fill: #2c312c; stroke: var(--ink-fixed); stroke-width: 3; transition: fill 0.4s; }
+.omni__notch.is-active { fill: var(--omni); }
+.omni__inner { fill: #1b1f1b; stroke: var(--ink-fixed); stroke-width: 5; }
+.omni__glow { fill: none; stroke: var(--omni); stroke-width: 3; stroke-dasharray: 4 7; opacity: 0.8; }
+/* the inner dial clicks one step per skill */
+.omni__dial { transform-origin: 200px 200px; transform: rotate(var(--spin)); transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.omni__led { fill: var(--omni); stroke: var(--ink-fixed); stroke-width: 2.5; }
+
+/* Faceplate in selection mode: lit hourglass, dark wedges, the current skill projected as a green hologram */
+.omni__face {
+  position: absolute; inset: 16.5%; z-index: 1; padding: 0; border-radius: 50%; overflow: hidden; cursor: pointer;
+  background: radial-gradient(circle at 50% 42%, #134d1c, var(--omni-deep) 72%);
+  border: 4px solid var(--ink-fixed); box-shadow: 0 0 0 3px var(--omni), 0 0 22px rgba(69, 245, 58, 0.55);
+}
+.omni__holo {
+  position: absolute; inset: 27%; z-index: 1; display: grid; place-items: center; color: var(--omni-hi);
+  filter: drop-shadow(0 0 4px var(--omni)) drop-shadow(0 0 14px rgba(69, 245, 58, 0.7));
+}
+.omni__holo svg { width: 100%; height: 100%; }
+.omni__glass { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.omni__wedge { fill: rgba(5, 12, 6, 0.74); }
+.omni__hourglass { fill: rgba(69, 245, 58, 0.14); stroke: var(--omni-hi); stroke-width: 1.6; stroke-linejoin: round; animation: omni-pulse 2.4s ease-in-out infinite; transition: fill 0.3s; }
+.omni__scan { position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 4px); }
+.omni__flash { position: absolute; inset: 0; pointer-events: none; visibility: hidden; opacity: 0; background: radial-gradient(circle, #f2ffe9 0%, var(--omni) 45%, transparent 72%); }
+.omni__face:hover .omni__hourglass, .omni__face:focus-visible .omni__hourglass { fill: rgba(69, 245, 58, 0.3); }
+.omni__face:focus-visible { outline: 3px solid var(--crimson); outline-offset: 6px; }
+@keyframes omni-pulse { 50% { stroke-opacity: 0.5; } }
+@keyframes omni-blink { 50% { opacity: 0.5; } }
+
+/* LCD on the band under the dial: which skill the watch is showing */
+.omni__lcd {
+  position: absolute; left: 50%; top: calc(100% + 0.5rem); translate: -50% 0; z-index: 2;
+  display: flex; align-items: baseline; justify-content: center; gap: 0.5rem; min-width: 62%; padding: 0.35rem 0.8rem;
+  background: #0b2410; border: 3px solid var(--ink-fixed); border-radius: 6px; box-shadow: inset 0 0 10px rgba(69, 245, 58, 0.25);
+  color: var(--omni-hi); text-shadow: 0 0 6px rgba(69, 245, 58, 0.8); white-space: nowrap;
+  font-weight: 800; font-variation-settings: 'wdth' 125; text-transform: uppercase; letter-spacing: 0.04em;
+  font-size: clamp(0.68rem, 0.9vw, 0.9rem);
+}
+.omni__lcd-idx { color: var(--omni); opacity: 0.7; font-variant-numeric: tabular-nums; }
+
+.arsenal__panel[hidden] { display: none; }
+.arsenal__note { color: var(--ash); margin-bottom: 1.25rem; font-size: var(--step--1); }
+.arsenal__skills { display: grid; gap: 0.1rem; }
+.arsenal__skill { overflow: hidden; }
+.arsenal__skill-inner {
+  display: flex; align-items: baseline; gap: 0.75rem;
+  font-size: clamp(1.1rem, 1.7vw, 1.6rem); font-weight: 700; line-height: 1.25; font-variation-settings: 'wdth' 110;
+}
+.arsenal__learning {
+  font-style: normal; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em;
+  color: var(--crimson); border: 1px solid currentColor; padding: 0.05rem 0.4rem; white-space: nowrap;
+  font-variation-settings: 'wdth' 100; translate: 0 -0.35em;
+}
+
+@media (max-width: 899px) {
+  .arsenal__body { grid-template-columns: 1fr; }
+  .arsenal__tab { grid-template-columns: 1.6rem 1fr; min-height: 44px; }
+  .arsenal__tab-name { font-size: clamp(1rem, 5.4vw, 1.4rem); } /* one column: the extended face never breaks a word */
+  .arsenal__tab.is-active .arsenal__tab-name { transform: none; }
+  .arsenal__core { max-width: 16rem; }
+}
+
+/* Skill rows carry a coloured icon box; the one on the watch gets a lit marker */
+.arsenal__skill-inner { align-items: center; transition: translate 0.3s var(--ease-cine); }
+.arsenal__skill { padding: 0.2rem 0; }
+.arsenal__skill-inner::before {
+  content: ''; flex: none; width: 0.55rem; height: 0.55rem; border: 2px solid var(--black); transition: background-color 0.2s;
+}
+.arsenal__skill.is-current .arsenal__skill-inner { translate: 0.35rem 0; }
+.arsenal__skill.is-current .arsenal__skill-inner::before { background: #45f53a; }
+
+@media (max-width: 899px) {
+  .arsenal__core { margin: 1.5rem auto 3.5rem; }
+}
+
+/* A taped print of the battlefield, pinned beside the header */
+.arsenal__print { position: absolute; right: calc(var(--gutter) + var(--rail)); top: clamp(4rem, 9vh, 6rem); width: clamp(10rem, 15vw, 15rem); z-index: 1; }
+@media (max-width: 899px) { .arsenal__print { display: none; } }

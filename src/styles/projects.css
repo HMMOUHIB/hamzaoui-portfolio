@@ -1,0 +1,47 @@
+/* The work: three polaroids pinned in a row, notes typed under each (after mainref.mp4's studio strip) */
+.work__list {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 4.5rem);
+  max-width: 84rem; margin: 0 auto; align-items: start;
+}
+.work__item { display: grid; gap: clamp(1.5rem, 3vw, 2.4rem); }
+.work__shot { display: grid; place-items: center; text-decoration: none; }
+
+.work__num { font-weight: 800; font-variation-settings: 'wdth' 125; text-transform: uppercase; font-size: var(--step--1); color: var(--crimson); }
+.work__title { font-size: clamp(1.6rem, 2.6vw, 2.8rem); margin: 0.35rem 0 0.6rem; }
+.work__role { font-weight: 700; font-size: var(--step--1); margin-bottom: 0.9rem; }
+.work__stack { display: flex; flex-wrap: wrap; gap: 0.45rem 1rem; font-size: var(--step--1); margin-bottom: 0.9rem; }
+.work__stack li { display: inline-flex; align-items: center; gap: 0.45rem; }
+.work__summary { color: var(--ash); font-size: var(--step--1); line-height: 1.6; max-width: 42ch; margin-bottom: 0.9rem; }
+.work__points { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; font-size: 0.8rem; color: var(--ash); margin-bottom: 1.4rem; }
+.work__points li::before { content: '✦'; margin-right: 0.35rem; color: var(--black); }
+.work__cta {
+  display: inline-flex; align-items: center; gap: 0.6rem; min-height: 44px;
+  font-weight: 800; font-variation-settings: 'wdth' 125; font-size: var(--step--1); text-transform: uppercase;
+  text-decoration: none; border-bottom: 2px solid var(--black); transition: color 0.3s, border-color 0.3s, gap 0.4s var(--ease-cine);
+}
+.work__cta:hover, .work__cta:focus-visible { color: var(--crimson); border-color: var(--crimson); gap: 1rem; }
+
+@media (max-width: 1099px) { .work__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 699px) {
+  .work__list { grid-template-columns: 1fr; gap: 4rem; }
+  .work__shot { padding: 0 8%; }
+}
+
+/* Project marks, printed dark inside the polaroid */
+.pv { position: absolute; inset: -4%; }
+.pv svg { width: 100%; height: 100%; transition: transform 1.2s var(--ease-cine); }
+.work__shot:hover .pv svg, .work__shot:hover .pv video { transform: scale(1.04); }
+.pv-cell { fill: none; stroke: rgba(236, 236, 236, 0.13); stroke-width: 1; }
+.pv-lit { fill: rgba(242, 35, 27, 0.08); stroke: rgba(242, 35, 27, 0.6); stroke-width: 1; }
+.pv-hot { fill: var(--crimson); stroke: var(--crimson-hi); animation: pv-breathe 3s ease-in-out infinite; }
+.pv-ring { fill: none; stroke: rgba(236, 236, 236, 0.18); stroke-width: 1; }
+.pv-hot-stroke { fill: none; stroke: var(--crimson); stroke-width: 1.5; }
+.pv-core { fill: var(--paper-fixed); }
+.pv-link { stroke: rgba(236, 236, 236, 0.18); stroke-width: 1; }
+.pv-node { fill: var(--paper-fixed); }
+.pv-knot { fill: var(--crimson); }
+.pv--aura .pv-ring { animation: pv-drift 7s ease-in-out infinite; animation-delay: var(--d); transform-box: fill-box; transform-origin: center; }
+@keyframes pv-breathe { 50% { opacity: 0.55; } }
+@keyframes pv-drift { 50% { opacity: 0.35; } }
+.pv--film { inset: 0; }
+.pv video { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-cine); }

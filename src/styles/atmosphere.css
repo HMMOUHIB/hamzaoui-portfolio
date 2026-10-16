@@ -1,0 +1,16 @@
+/* Dust and halftone behind the page (components/Atmosphere) */
+.atmo { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+
+/* The "invert" switch: tiny mono label bottom-right, like the reference */
+.theme {
+  position: fixed; right: max(1rem, calc(var(--gutter) * 0.6)); bottom: 1rem; z-index: 130;
+  display: inline-flex; align-items: center; gap: 0.55rem; min-height: 44px; padding: 0 0.85rem;
+  font: 600 0.72rem/1 ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; letter-spacing: 0.14em; text-transform: lowercase;
+  color: var(--black); background: color-mix(in srgb, var(--paper) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--black) 35%, transparent); border-radius: 999px;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: border-color 0.3s, background-color 0.3s;
+}
+.theme:hover, .theme:focus-visible { border-color: var(--black); }
+.theme__icon { width: 1.05rem; height: 1.05rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: rotate 0.6s var(--ease-cine); }
+.theme:hover .theme__icon { rotate: 40deg; }

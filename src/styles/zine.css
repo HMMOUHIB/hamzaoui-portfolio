@@ -1,0 +1,60 @@
+/* Shared zine pieces (components/Zine.jsx) */
+
+/* ✸ ✦ ♣ */
+.dingbats { display: inline-flex; align-items: center; gap: 0.18em; font-size: 1em; color: var(--black); }
+.dingbats svg { width: 1em; height: 1em; fill: currentColor; }
+.dingbats svg:nth-child(2) { width: 0.86em; height: 0.86em; }
+
+/* Polaroid: thick white border, deeper at the bottom, tilted, a soft cast shadow */
+.polaroid {
+  --tilt: -3deg;
+  position: relative; margin: 0; padding: 0.7rem 0.7rem 0; background: var(--paper-hi);
+  rotate: var(--tilt); box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 14px 30px -12px rgba(0, 0, 0, 0.45);
+  transition: rotate 0.7s var(--ease-cine), translate 0.7s var(--ease-cine);
+}
+.polaroid__photo { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--charcoal); }
+.polaroid__photo > img, .polaroid__photo > video { width: 100%; height: 100%; object-fit: cover; }
+.polaroid__cap {
+  padding: 0.55rem 0.2rem 0.8rem; min-height: 3rem; text-align: center;
+  font-family: var(--f-hand); font-weight: 700; font-size: clamp(1.15rem, 1rem + 0.5vw, 1.5rem); line-height: 1.1; color: var(--black);
+}
+.polaroid--tape::before {
+  content: ''; position: absolute; left: 50%; top: -0.9rem; width: 34%; height: 1.7rem; translate: -50% 0; rotate: 3deg; z-index: 2;
+  background: rgba(236, 228, 200, 0.72); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+/* Selection box: 1px red frame with eight white square handles */
+.selbox { position: relative; }
+.selbox__frame { position: absolute; inset: 0; border: 1px solid var(--crimson-hi); pointer-events: none; }
+.selbox__h {
+  position: absolute; width: 9px; height: 9px; margin: -5px 0 0 -5px;
+  background: #fff; border: 1px solid var(--crimson-hi);
+}
+.selbox__h--nw { left: 0; top: 0; } .selbox__h--n { left: 50%; top: 0; } .selbox__h--ne { left: 100%; top: 0; }
+.selbox__h--e { left: 100%; top: 50%; } .selbox__h--se { left: 100%; top: 100%; } .selbox__h--s { left: 50%; top: 100%; }
+.selbox__h--sw { left: 0; top: 100%; } .selbox__h--w { left: 0; top: 50%; }
+
+/* Torn band edges */
+.torn { display: block; width: 100%; height: clamp(18px, 2.6vw, 34px); }
+.torn__ink { fill: var(--band); }
+.torn__fibre { fill: var(--fibre); }
+.torn--bottom { transform: scaleY(-1); }
+
+/* A torn black band with type running through it (Ribbon) */
+.band { position: relative; margin: clamp(2rem, 6vh, 4rem) 0; pointer-events: none; }
+.band__body { position: relative; background: var(--band); margin: -1px 0; }
+.band__row { display: flex; align-items: center; height: clamp(5.5rem, 12vw, 11rem); overflow: hidden; }
+.band__item {
+  display: inline-flex; align-items: center; gap: 0.5em; padding: 0 0.5em; white-space: nowrap; color: var(--on-band);
+  font-family: var(--f-display); font-weight: 900; font-variation-settings: 'wdth' 125; text-transform: uppercase;
+  font-size: clamp(2.2rem, 6.4vw, 6.4rem); line-height: 1; letter-spacing: -0.02em;
+}
+.band__item .dingbats { color: var(--on-band); font-size: 0.62em; }
+.band__marquee { transform: skewY(-1.5deg); }
+/* The sticker sits on the band and breaks out above it; the bottom tear tucks it in */
+.band__sticker {
+  position: absolute; left: 50%; bottom: calc(clamp(18px, 2.6vw, 34px) * 0.72); translate: -50% 0; z-index: 1;
+  width: clamp(12rem, 26vw, 24rem); height: auto; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+}
+.band--sticker { padding-top: clamp(4rem, 10vw, 9rem); } /* headroom: the sticker stands taller than the band */
+.band .torn--bottom { position: relative; z-index: 2; }

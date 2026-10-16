@@ -1,0 +1,52 @@
+# Batch 001 (frames 001–008)
+
+- **Source** — direct mobile/vertical screen capture (no bezel, no room); a single static poster-style page with in-place motion, no scrolling in this batch
+
+## Screen 1: Portfolio masthead + About + marquee band
+- **Frames** — `001–008` (same layout throughout; only animated elements change)
+- **Colors**
+  - bg paper `~#ECECEC`, crumpled-paper texture + graph-paper grid lines `~#D6D6D6`
+  - ink / headings `~#111111`
+  - torn black band `~#0E0E0E`, marquee text on it `~#F2F2F2`
+  - accent red (cut-out sticker outline) `~#F2231B`
+  - selection-box frame `~#E05A64` with white square handles
+  - skill-icon tiles: Ps `~#001E36`/`~#31A8FF`, Ai `~#330000`/`~#FF9A00`, Ae + Pr `~#00005B`/`~#9999FF`, Blender `~#E87D0D`
+- **Type**
+  - masthead "PORTFOLIO": ultra-wide extended heavy grotesque (Monument Extended / Archivo Expanded Black class), all caps, tight tracking, spans ~78% of viewport width, ~10% of viewport height
+  - kicker labels "DESIGNER / ILLUSTRATOR" (left) and "2026" (right) sit just above the masthead, same extended family, bold caps, ~2.5% width
+  - "HELLO": same extended black, ~1/4 of the masthead's size
+  - section heads "EDUCATION", "SKILLS", "EXPERIENCE": extended bold caps, about half the size of "HELLO"
+  - body copy: tiny regular sans (~7px at 720w), dark grey; sub-labels in bold
+  - handwritten script signature, thin black pen, with a hand-drawn curved arrow pointing up at the illustration
+  - marquee: same extended black, white, very large (~12% viewport height), slight skew/rotation
+- **Layout**
+  - one vertical poster stack: masthead → centered glyph divider "✸✦✣" → 3-column About → full-bleed torn-paper black band → next section ("THE STU" + polaroids, cut off at the bottom)
+  - About columns: left = tall portrait photo inside a design-tool bounding box (8 handles); middle = HELLO + bio + EDUCATION; right = SKILLS 3×2 app-icon grid + EXPERIENCE timeline
+  - band: centered cut-out head-and-shoulders photo with a thick red sticker outline; it breaks out above the band's top torn edge, and the marquee runs behind it
+  - bottom: centered "THE STU" heading with tilted white-bordered polaroid photos (dark rooms with neon light), cropped by the viewport
+- **Motifs**
+  - crumpled paper + graph-grid texture; torn/ripped paper edges top and bottom of the black band (white paper fibers visible)
+  - B/W line-art caricature head (curly hair, angry brows) replacing the "O" in PORTFOLIO
+  - Figma/Illustrator-style selection bounding box as the photo frame (thin red-pink stroke, square handles)
+  - sticker cut-out photo with a thick red outline
+  - decorative glyphs: 8-point starburst ✸, 4-point sparkle ✦, club ✣, used as dividers and as marquee separators
+  - polaroid frames, rotated a few degrees
+  - real app icons (Ps, Ai, Ae, Pr, Procreate, Blender) as rounded-square tiles, `~6px` radius
+  - no nav bar or site chrome visible
+- **Animation**
+  - handwriting draw-on: the signature writes itself left to right ("R" → "Raag" → "Raagav S" → "Raagav Sunda" → "Raagav Sundar"), with the arrow drawn first; done by frame 006 and holds after; time-driven
+  - turntable sequence inside the selection box: frame 001 empty → 002 back view → 003 back ¾ → 004 left profile → 005 front ¾ → 006 front → 007 front ¾ → 008 right profile; a 360° image-sequence rotation at about 45° per second; time-driven, loops
+  - marquee band: text scrolls continuously right to left, about one word per second, with alternating separators: "RAAGAV SUNDAR ✸ ✦✣ PORTFOLIO ✸ ✦✣ 2026 ✸ ✦✣ GRAPH…"; infinite loop, time-driven
+  - the red-outlined cut-out portrait stays static over the moving marquee (layered depth)
+- **Copy**
+  - "DESIGNER / ILLUSTRATOR" · "PORTF[illustration]LIO" · "2026"
+  - signature: "Raagav Sundar"
+  - "HELLO" / "Hi, Im Raagav Sundar."
+  - "Creating has never felt like a hobby to me. Its just how I process the world."
+  - "Ive always been drawn to ideas that are a little different- things that make you pause for a second, look twice, or think a little deeper. Thats probably why I enjoy everything from branding and photography to music, drawing, filmmaking, and reading . They all tell stories in their own way."
+  - "Right now Im studying Graphic Design in India while working with people and brands that trust me to bring their ideas to life."
+  - "EDUCATION" / "Bachelor of Design in Graphic Design" / "Lovely Professional University | 2024 - 2028"
+  - "SKILLS"
+  - "EXPERIENCE" / "2023 - Present" "Graphic Designer" "(Freelance)" / "2024 - 2025" "Graphic Designer & Illustrator" "Macbease Inc"
+  - marquee: "RAAGAV SUNDAR" · "PORTFOLIO" · "2026" · "GRAPH…"
+  - "THE STU" (truncated in every frame)

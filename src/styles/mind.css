@@ -1,0 +1,133 @@
+/* Mind: the verbs over a pale manga print, on the same paper as everything else */
+.mind { position: relative; color: var(--black); isolation: isolate; }
+.mind__inner {
+  position: relative; z-index: 1;
+  padding: clamp(6rem, 14vh, 10rem) calc(var(--gutter) + var(--rail)) clamp(4rem, 10vh, 8rem) var(--gutter);
+}
+
+.mind__stage { position: relative; --sw: clamp(16rem, 30vw, 34rem); --vf: clamp(4rem, 8.4vw, 9.5rem); }
+.mind__words { display: grid; gap: clamp(2.5rem, 6vh, 4rem); }
+.mind__word { display: grid; gap: 1rem; }
+.mind__verb { position: relative; display: grid; width: fit-content; font-size: clamp(2.4rem, 11vw, 8rem); }
+.mind__verb--break { color: transparent; -webkit-text-stroke: 2px var(--black); }
+.mind__note { display: grid; gap: 0.3rem; padding-left: 1rem; border-left: 3px solid var(--crimson); font-size: var(--step-0); color: var(--black); }
+
+/* Two stacked copies of every word, each keeping one side of the Getsuga's cut (negative insets: letters can fly) */
+.mind__half { grid-area: 1 / 1; }
+.mind__half--a { clip-path: inset(-300% -60% 46% -60%); }
+.mind__half--b { clip-path: inset(54% -60% -300% -60%); }
+/* the burning scar the crescent leaves along the cut */
+.mind__scar {
+  position: absolute; left: -3%; right: -3%; top: 54%; height: 0.05em; margin-top: -0.025em; border-radius: 1em;
+  background: linear-gradient(90deg, rgba(242, 35, 27, 0), #f2231b 10%, #ff9a6a 50%, #f2231b 90%, rgba(242, 35, 27, 0));
+  box-shadow: 0 0 0.14em 0.03em rgba(242, 35, 27, 0.85); transform-origin: 0 50%; visibility: hidden;
+}
+
+/* Build: the letters land on a ruler */
+.mind__base {
+  position: absolute; left: -0.15em; right: -0.15em; bottom: -0.02em; height: 0.09em; transform-origin: 0 50%;
+  background:
+    linear-gradient(var(--black), var(--black)) 0 100% / 100% 2px no-repeat,
+    repeating-linear-gradient(90deg, var(--black) 0 2px, transparent 2px 0.18em) 0 100% / 100% 60% no-repeat,
+    repeating-linear-gradient(90deg, var(--crimson) 0 2px, transparent 2px 0.9em) 0 100% / 100% 100% no-repeat;
+}
+/* Evolve: an outline that fills with ink, letter by letter (filled when static) */
+.mind__verb--evolve .char {
+  color: transparent; -webkit-text-stroke: 2px var(--black);
+  background: linear-gradient(90deg, var(--black) 50%, transparent 0) 0% 0 / 200% 100% no-repeat;
+  -webkit-background-clip: text; background-clip: text;
+}
+/* Rebuild: locked together and underlined in red marker */
+.mind__mark { position: absolute; left: -0.04em; right: 0.3em; bottom: -0.06em; height: 0.085em; background: var(--crimson); transform-origin: 0 50%; }
+
+/* The Getsuga Tenshō: sized from the word, centred on its x / y (GSAP), flames over everything */
+.mind__getsuga {
+  position: absolute; left: 0; top: 0; z-index: 3; width: 1.25em; height: 2.5em; margin: -1.25em 0 0 -0.62em;
+  font-size: clamp(2.4rem, 11vw, 8rem); overflow: visible; pointer-events: none; visibility: hidden;
+}
+.mind__tongue { fill: none; stroke: #f2231b; stroke-width: 14; stroke-linecap: round; opacity: 0.55; }
+
+.mind__rail, .mind__sword, .mind__arc, .mind__flash, .mind__bar { display: none; }
+
+/* Desktop: a pinned stage — the word in the middle, the katana on its left, the count bottom-left */
+.mind__stage.is-pinned { height: 100svh; }
+.mind__stage.is-pinned .mind__words { display: block; position: relative; height: 100%; }
+.mind__stage.is-pinned .mind__word {
+  position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;
+  padding-left: clamp(11rem, 20vw, 22rem); visibility: hidden;
+}
+.mind__stage.is-pinned .mind__word:first-child { visibility: visible; }
+.mind__stage.is-pinned .mind__verb { font-size: var(--vf); }
+.mind__stage.is-pinned .mind__getsuga { font-size: var(--vf); }
+.mind__stage.is-pinned .mind__verb--build .word, .mind__stage.is-pinned .mind__verb--rebuild .word { overflow: visible; }
+/* notes sit below-right, out of the flow, so the word's centre is the stage's centre (where the sword strikes) */
+.mind__stage.is-pinned .mind__note { position: absolute; right: 4vw; top: calc(50% + var(--vf) * 0.78); min-width: 16rem; }
+
+/* the katana stands upright left of the word; it turns on the middle of its grip */
+.mind__stage.is-pinned .mind__sword {
+  display: block; position: absolute; z-index: 2; left: calc(8vw - var(--sw) * 0.12); top: 50%;
+  width: var(--sw); max-width: none; height: auto; margin-top: calc(var(--sw) * -0.067);
+  filter: drop-shadow(3px 4px 0 rgba(17, 17, 17, 0.12)); pointer-events: none;
+}
+/* the swing's trail: a red fan around the grip, from upright to the follow-through */
+.mind__stage.is-pinned .mind__arc {
+  display: block; position: absolute; z-index: 1; left: calc(8vw - var(--sw) * 0.9); top: calc(50% - var(--sw) * 0.9);
+  width: calc(var(--sw) * 1.8); aspect-ratio: 1; border-radius: 50%; visibility: hidden; pointer-events: none;
+  background: conic-gradient(transparent 0deg 8deg, rgba(242, 35, 27, 0) 8deg, rgba(242, 35, 27, 0.38) 128deg, transparent 128deg);
+  -webkit-mask: radial-gradient(closest-side, transparent 66%, #000 74%, #000 96%, transparent 100%);
+  mask: radial-gradient(closest-side, transparent 66%, #000 74%, #000 96%, transparent 100%);
+}
+/* impact: a red bloom where the crescent meets the word */
+.mind__stage.is-pinned .mind__flash {
+  display: block; position: absolute; inset: 0; z-index: 2; visibility: hidden; pointer-events: none;
+  background: radial-gradient(ellipse 50% 32% at 38% 50%, rgba(242, 35, 27, 0.24), transparent 70%);
+}
+
+/* chapter rail, bottom-left: the count and the four motions, the active one inked */
+.mind__stage.is-pinned .mind__rail { display: flex; align-items: baseline; gap: 1.8rem; position: absolute; left: 0; bottom: 4.6rem; z-index: 1; }
+.mind__count { display: flex; align-items: baseline; gap: 0.35rem; font-variant-numeric: tabular-nums; }
+.mind__count-num { font-family: var(--f-display); font-weight: 900; font-variation-settings: 'wdth' 125; font-size: 2.6rem; line-height: 1; }
+.mind__count-of { font-size: var(--step--1); font-weight: 700; color: #6b665e; }
+.mind__steps { display: flex; gap: 1.3rem; }
+.mind__steps li {
+  display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-variation-settings: 'wdth' 125;
+  text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.04em; color: color-mix(in srgb, var(--black) 30%, transparent); transition: color 0.35s;
+}
+.mind__steps b { width: 0.6rem; aspect-ratio: 1; border: 1.5px solid currentColor; transition: background-color 0.35s, border-color 0.35s; }
+.mind__steps li.is-on { color: var(--black); }
+.mind__steps li.is-on b { background: var(--crimson); border-color: var(--crimson); }
+
+.mind__stage.is-pinned .mind__bar {
+  display: block; position: absolute; left: 0; right: 0; bottom: 3rem; height: 1px; background: color-mix(in srgb, var(--black) 15%, transparent);
+}
+.mind__bar-fill { position: absolute; inset: 0; background: var(--black); transform-origin: left; transform: scaleX(0); }
+
+/* Manga floor: bleach2 multiplied into the paper; sticky so one viewport-sized print covers the long pinned chapter */
+.mind__manga { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: clip; } /* clip, not hidden: keeps the sticky print sticky while its zoom can't widen the page */
+.mind__manga span {
+  position: sticky; top: 0; display: block; height: 100svh;
+  background: url('../assets/bleach/manga.webp') 50% 50% / cover no-repeat;
+  opacity: 0.08; mix-blend-mode: multiply;
+}
+
+/* Ink wash — soft pigment clouds drifting across the paper (transform-only). */
+.mind__ink { position: absolute; inset: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+.mind__ink span {
+  position: absolute; width: 70vmax; height: 70vmax; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.045), rgba(0, 0, 0, 0.015) 40%, transparent 68%);
+  will-change: transform;
+}
+.mind__ink span:nth-child(1) { left: -20vmax; top: -10vmax; animation: ink-a 26s ease-in-out infinite alternate; }
+.mind__ink span:nth-child(2) { right: -25vmax; top: 30%; animation: ink-b 32s ease-in-out infinite alternate; }
+.mind__ink span:nth-child(3) {
+  left: 30%; bottom: -30vmax; width: 55vmax; height: 55vmax;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.025) 40%, transparent 68%);
+  animation: ink-c 22s ease-in-out infinite alternate;
+}
+.mind__ink span:nth-child(4) { left: 10%; top: 55%; width: 40vmax; height: 40vmax; animation: ink-b 38s ease-in-out infinite alternate-reverse; }
+@keyframes ink-a { to { transform: translate(18vw, 22vh) scale(1.25); } }
+@keyframes ink-b { to { transform: translate(-22vw, -18vh) scale(0.85); } }
+@keyframes ink-c { to { transform: translate(-15vw, -35vh) scale(1.3); } }
+
+/* The hell butterflies fly across the full page width */
+.mind__stage > .hb-layer { left: calc(-1 * var(--gutter)); right: calc(-1 * (var(--gutter) + var(--rail))); }

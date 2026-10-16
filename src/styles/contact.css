@@ -1,0 +1,58 @@
+.contact {
+  position: relative; min-height: 100svh; overflow: hidden;
+  display: grid; align-items: end;
+  padding: clamp(7rem, 16vh, 11rem) calc(var(--gutter) + var(--rail)) clamp(3rem, 8vh, 5rem) var(--gutter);
+}
+/* The artwork, drawn on a 3840×2160 canvas: me full-length standing on the section floor, the kagune burst growing from
+   behind my shoulder. Behind the type; the left edge fades so the headline stays readable. */
+.contact__art {
+  position: absolute; right: calc(var(--rail) + var(--gutter) - 4vw); bottom: 0; z-index: 0;
+  height: min(76svh, 54rem); aspect-ratio: 16 / 9; pointer-events: none; user-select: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 8%, #000 36%); mask-image: linear-gradient(90deg, transparent 8%, #000 36%);
+}
+.contact__me { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* the burst occupies x 21.6%..81.6%, y 0..80.4% of the canvas (829,0 / 2306×1736 of 3840×2160) */
+.contact__kagune { position: absolute; left: 21.6%; top: 0; width: 60%; height: 80.4%; object-fit: fill; animation: kag-breathe 5.2s ease-in-out infinite; transform-origin: 74% 34%; }
+/* a thin crimson rim and a pink bloom from the burst behind, then the cast shadow */
+.contact__me {
+  filter: drop-shadow(0 0 2px #f2231b) drop-shadow(0 0 18px rgba(255, 45, 110, 0.5)) drop-shadow(0 16px 22px rgba(0, 0, 0, 0.4));
+  animation: me-float 7s ease-in-out infinite;
+}
+@keyframes kag-breathe { 50% { scale: 1.02; } }
+@keyframes me-float { 50% { translate: 0 -0.8%; } }
+@media (prefers-reduced-motion: reduce) { .contact__kagune, .contact__me { animation: none; } }
+.contact__inner { position: relative; z-index: 1; max-width: 60rem; }
+.contact__chapter {
+  display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;
+  font-weight: 800; font-variation-settings: 'wdth' 125; text-transform: uppercase; font-size: var(--step--1);
+}
+.contact__chapter span { color: var(--crimson); }
+.contact__headline { font-size: clamp(2.2rem, 5.6vw, 5.8rem); margin-bottom: 2.5rem; max-width: 13ch; }
+.contact__id { margin-bottom: 2.5rem; }
+.contact__name { font-family: var(--f-hand); font-weight: 700; font-size: clamp(1.6rem, 2.4vw, 2.2rem); line-height: 1; }
+.contact__roles { color: var(--ash); font-size: var(--step--1); display: grid; gap: 0.1rem; margin-top: 0.5rem; }
+
+.contact__cta {
+  position: relative; display: inline-grid; gap: 0.4rem; padding: 1.4rem 2rem 1.3rem; margin-bottom: 2.5rem;
+  text-decoration: none; background: var(--black); color: var(--paper); overflow: hidden; isolation: isolate;
+  box-shadow: 8px 8px 0 var(--crimson); transition: box-shadow 0.4s var(--ease-cine), translate 0.4s var(--ease-cine);
+}
+.contact__cta:hover, .contact__cta:focus-visible { translate: -3px -3px; box-shadow: 12px 12px 0 var(--crimson); }
+.contact__cta-text {
+  font-family: var(--f-display); font-weight: 900; font-variation-settings: 'wdth' 125; text-transform: uppercase;
+  font-size: clamp(1.4rem, 3.2vw, 3rem); line-height: 1; letter-spacing: -0.02em;
+}
+.contact__cta-mail { font-size: var(--step--1); color: color-mix(in srgb, var(--paper) 68%, var(--black)); overflow-wrap: anywhere; }
+
+.contact__links { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; }
+.contact__links a {
+  display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; text-decoration: none;
+  font-weight: 700; font-size: var(--step--1); color: var(--black); transition: color 0.3s;
+}
+.contact__links a:hover, .contact__links a:focus-visible { color: var(--crimson); }
+
+@media (max-width: 899px) {
+  .contact { padding-top: calc(5rem + 56vw); } /* the artwork gets its own space above the headline */
+  .contact__art { right: 0; bottom: auto; top: 4rem; height: auto; width: 100vw; -webkit-mask-image: none; mask-image: none; }
+  .contact__cta { display: grid; padding: 1.2rem 1.25rem; }
+}

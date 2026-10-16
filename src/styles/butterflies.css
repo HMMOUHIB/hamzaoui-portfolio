@@ -1,0 +1,28 @@
+/* Hell butterflies: black ink wings, veins and glow in each one's colour, the mark on the body. Behind the content. */
+.hb-layer { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.hb { --hb: clamp(3.4rem, 5.6vw, 5.6rem); position: absolute; left: 0; top: 0; width: var(--hb); margin: calc(var(--hb) / -2) 0 0 calc(var(--hb) / -2); will-change: transform; }
+.hb__bob { position: relative; }
+.hb__svg { width: 100%; height: auto; overflow: visible; filter: drop-shadow(0 0 5px color-mix(in srgb, var(--c) 70%, transparent)); }
+.hb__wing {
+  transform-box: view-box; transform-origin: 0 0;   /* view-box origin = user (0,0), where the body sits */
+  transform: scaleX(var(--side));
+  animation: hb-flap var(--flap) ease-in-out infinite alternate;
+}
+@keyframes hb-flap { to { transform: scaleX(calc(var(--side) * 0.22)); } }
+.hb-layer:not(.is-live) .hb__wing { animation-play-state: paused; }
+.hb__fill { fill: #0c0c0e; stroke: var(--c); stroke-width: 0.9; stroke-opacity: 0.85; }
+.hb__vein { fill: none; stroke: var(--c); stroke-width: 0.6; stroke-opacity: 0.55; stroke-linecap: round; }
+.hb__antenna { fill: none; stroke: #0c0c0e; stroke-width: 1.1; stroke-linecap: round; }
+.hb__body { fill: #0c0c0e; stroke: var(--c); stroke-width: 0.6; }
+/* the mark rides on the thorax, in the butterfly's colour */
+.hb__seal {
+  position: absolute; left: 50%; top: 50%; width: 30%; aspect-ratio: 1; translate: -50% -58%;
+  display: grid; place-items: center; border-radius: 50%;
+  background: #0c0c0e; border: 1.5px solid var(--c); color: var(--c);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--c) 60%, transparent);
+}
+.hb__seal svg { width: 62%; height: 62%; }
+
+@media (max-width: 899px) {
+  .hb:not([data-phone]) { display: none; }
+}

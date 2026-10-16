@@ -1,0 +1,25 @@
+.floaters { position: absolute; inset: -3rem 0; z-index: -1; pointer-events: none; overflow: hidden; }
+
+/* Drift uses the individual translate/rotate properties so GSAP's scroll parallax (transform) never fights it. */
+.floater {
+  position: absolute; opacity: 0.55; filter: blur(var(--blur, 0px));
+  animation: floater-drift var(--d) ease-in-out var(--dl) infinite alternate;
+}
+@keyframes floater-drift {
+  from { translate: 0 0; rotate: 0deg; }
+  to   { translate: var(--dx) var(--dy); rotate: var(--r); }
+}
+
+@media (max-width: 899px) {
+  .floater:nth-child(n + 9) { display: none; }
+  .floater { opacity: 0.4; }
+}
+@media (prefers-reduced-motion: reduce) { .floater { animation: none; } }
+
+/* Light paper (the Mind chapter): pale tiles, ink-toned edges, no dark fills */
+.floaters--light .floater { opacity: 0.9; }
+.floaters--light .ibox {
+  background: color-mix(in srgb, var(--c) 10%, #fff);
+  border-color: color-mix(in srgb, var(--c) 55%, transparent);
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--c) 22%, transparent);
+}

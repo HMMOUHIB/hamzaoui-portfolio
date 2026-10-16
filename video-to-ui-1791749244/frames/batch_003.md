@@ -1,0 +1,56 @@
+# Batch 003 (frames 016–022)
+
+- **Capture type**: direct vertical screen capture with no bezel or room, so it is not a filmed laptop. It shows a single tall portfolio page at mobile width. The scroll position stays the same through the whole batch. Only the elements inside the page animate.
+
+## Screen: Portfolio poster page (header + about + marquee band)
+
+- **Screen**: "PORTFOLIO" header, About/Skills/Experience block, torn black marquee band with portrait cut-out, top of the "THE STU…" section
+- **Frames**: 016–022 (same layout in every frame, with per-element animation)
+- **Colors**:
+  - bg paper `~#ECECEC`, grid lines `~#D4D4D4`, crumpled-paper shading `~#DADADA`
+  - ink / headings `#111111`
+  - marquee band `~#0B0B0B`
+  - marquee text `~#F0F0F0`
+  - sticker outline around portrait `~#F0281E` (red)
+  - selection-box frame + handles `~#E07580` (pinkish red, 1px)
+  - photo accents: pink jersey `~#F3A9C4`, denim `~#9EC2E2`
+- **Type**:
+  - "PORTFOLIO": extended or wide heavy grotesque, all caps, tight tracking, ~80% of viewport width. The "O" is replaced by an illustrated head.
+  - "DESIGNER / ILLUSTRATOR" and "2026": small bold extended caps set flush above the wordmark, left and right.
+  - "HELLO": extended black caps, ~30% of viewport width. "SKILLS", "EXPERIENCE" and "EDUCATION" use the same family at a smaller size.
+  - Body: small regular sans, ~10px at this scale, left-aligned, dark grey.
+  - Experience dates are bold, roles are bold-small and companies are regular-small.
+  - Signature "Raagav Sundar": handwritten marker script beside a hand-drawn curved arrow.
+  - Marquee: extended heavy caps, white, on a warped/arched baseline (text follows a wave)
+- **Layout**:
+  - Header: centred wordmark, kicker labels on its top corners, a signature annotation below right, then a centred dingbat row "✸✦♣".
+  - About: 3 columns. Left is a full-body cut-out photo inside a design-tool selection box with 8 handles. Middle is HELLO, the bio and EDUCATION. Right is SKILLS (3×2 grid of app icons) and EXPERIENCE.
+  - Torn-paper divider: ragged white paper edges top and bottom, full-bleed black band between them.
+  - A centred head-and-shoulders portrait cut-out sits on the band and breaks out above its top edge. The marquee runs behind the portrait.
+  - Below: "THE STU…" heading centred, tilted polaroid-style photo cards peeking in at the bottom edge.
+- **Motifs**:
+  - graph-paper grid over crumpled-paper texture (collage/zine look)
+  - torn-paper edges between sections
+  - cut-out photos with a thick red sticker outline
+  - fake Figma/Photoshop transform box (thin pink-red stroke, small square handles) used as a frame
+  - B/W line-art caricature of the face (anime-style ink) used as a letter in the wordmark
+  - dingbats as separators: ✸ (8-point burst), ✦ (4-point star), ♣ (club)
+  - software icons: Ps, Ai, Ae, Pr tiles with ~8px radius, plus Procreate and Blender logos
+  - polaroid cards with white borders, rotated a few degrees
+  - no nav bar visible
+- **Animation**:
+  - Marquee: continuous right-to-left horizontal scroll on a wavy baseline. It is time-based, since the page does not scroll. It moves ~1 word per second at 1 fps.
+  - Wordmark head: the illustration swaps between eyes-closed/calm (016, 020, 022) and eyes-open/scowl (017–019, 021). This is a time-based frame swap, like a blink or expression loop.
+  - Body cut-out (turnaround sequence): front with arms crossed (016), white glow silhouette as a flash transition (017), back view showing "SUNDAR 7" (018–019), side profile (020), front 3/4 view (021), empty box with white fade (022). This is an image-sequence loop with white-flash crossfades inside the fixed selection box, and it is time-based.
+  - Signature: full "Raagav Sundar" (016–019), then "Raagav Sun" (020), "Raagav" (021), "Raa" (022). The write-on stroke animation is reversing, erasing right to left. It is time-based and likely loops.
+  - Static elements: wordmark letters, HELLO block, skills, experience, portrait cut-out, torn band
+- **Copy**:
+  - "DESIGNER / ILLUSTRATOR" · "PORTF[head]LIO" · "2026" · "Raagav Sundar"
+  - "HELLO" · "Hi, Im Raagav Sundar."
+  - "Creating has never felt like a hobby to me. Its just how I process the world."
+  - "Ive always been drawn to ideas that are a little different- things that make you pause for a second, look twice, or think a little deeper. Thats probably why I enjoy everything from branding and photography to music, drawing, filmmaking, and reading . They all tell stories in their own way."
+  - "Right now Im studying Graphic Design in India while working with people and brands that trust me to bring their ideas to life."
+  - "EDUCATION" · "Bachelor of Design in Graphic Design" · "Lovely Professional University | 2024 - 2028"
+  - "SKILLS" · "EXPERIENCE" · "2023 - Present" · "Graphic Designer" · "(Freelance)" · "2024 - 2025" · "Graphic Designer & Illustrator" · "Macbease Inc"
+  - Marquee (put together from frames): "…CREATOR ✸✦♣ CREATIVE DIRECTOR ✸✦♣ RAAGAV SUNDAR…"
+  - "THE STU" (cut off at the frame edge, likely "THE STUDIO")

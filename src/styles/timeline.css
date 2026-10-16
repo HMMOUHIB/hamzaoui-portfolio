@@ -1,0 +1,62 @@
+.tl { position: relative; }
+.tl__rail {
+  position: relative; display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; align-items: center;
+  padding-bottom: 1rem; margin-bottom: 2rem;
+}
+.tl__year-btn {
+  min-height: 44px; padding: 0 0.1rem; font-size: var(--step--1); font-weight: 600;
+  color: var(--ash); letter-spacing: 0.04em; transition: color 0.3s;
+  position: relative;
+}
+.tl__year-btn::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: var(--crimson-hi);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--ease-cine);
+}
+.tl__year-btn:hover, .tl__year-btn.is-active { color: var(--black); }
+.tl__year-btn.is-active::after { transform: scaleX(1); }
+
+.tl__track { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3rem; } /* shown only when WebGL is unavailable; otherwise read by screen readers */
+.tl__item { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.5rem; overflow-wrap: anywhere; padding-left: 1.5rem; border-left: 1px solid var(--line); transition: border-color 0.5s; }
+.tl__item.is-active { border-left-color: var(--crimson); }
+.tl__year {
+  font-family: var(--f-display); font-weight: 900; font-variation-settings: 'wdth' 125; font-size: clamp(2.6rem, 12vw, 4.4rem); line-height: 0.9; letter-spacing: -0.02em;
+  color: transparent; -webkit-text-stroke: 1.5px color-mix(in srgb, var(--black) 35%, transparent); transition: color 0.6s, -webkit-text-stroke-color 0.6s;
+}
+.tl__item.is-active .tl__year { color: var(--black); -webkit-text-stroke-color: var(--black); }
+.tl__item--future .tl__year { font-style: normal; }
+.tl__item--future.is-active .tl__year { color: var(--crimson); -webkit-text-stroke-color: var(--crimson); }
+.tl__item--future .tl__place { color: var(--crimson); }
+.tl__item--future.is-active { border-left-color: var(--crimson); }
+.tl__card h3 { font-size: var(--step-1); font-weight: 600; font-variation-settings: 'wdth' 100; }
+.tl__place { font-family: var(--f-hand); font-weight: 700; font-size: 1.25rem; color: var(--crimson); margin: 0.2rem 0 0.6rem; }
+.tl__body { color: var(--ash); max-width: 38ch; }
+
+/* The handheld floats straight on the paper: no panel behind it */
+.tl__stage { position: relative; height: clamp(22rem, 68vh, 44rem); margin-top: 0.5rem; touch-action: pan-y; cursor: grab; }
+.tl__stage:active { cursor: grabbing; }
+.tl__stage:focus-visible { outline: 2px dashed var(--black); outline-offset: 6px; }
+/* soft edges: zoomed onto the screen, the body runs off the stage and dissolves into the paper instead of cutting */
+.tl__canvas {
+  position: absolute !important; inset: 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent), linear-gradient(transparent, #000 7%, #000 93%, transparent);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent), linear-gradient(transparent, #000 7%, #000 93%, transparent);
+  mask-composite: intersect;
+}
+.tl__hint {
+  margin: 0.8rem 0 0;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ash);
+}
+
+.tl__pad { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+.tl__key {
+  min-width: 44px; height: 44px; padding: 0 0.8rem; border: 2px solid var(--black); background: var(--paper-hi);
+  font-weight: 800; font-size: 0.85rem; letter-spacing: 0.06em; box-shadow: 3px 3px 0 var(--black);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.tl__key:hover { background: var(--black); color: var(--paper); }
+.tl__key:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--black); }
+.tl__key--start, .tl__key--start:hover { background: var(--crimson); color: #fff; }
+.tl__stage.is-off ~ .tl__pad .tl__key--start { animation: tl-blink 1.6s ease-in-out infinite; }
+@keyframes tl-blink { 50% { box-shadow: 3px 3px 0 var(--black), 0 0 0 6px rgba(242, 35, 27, 0.25); } }
+@media (prefers-reduced-motion: reduce) { .tl__stage.is-off ~ .tl__pad .tl__key--start { animation: none; } }
+@media (max-width: 899px) { .tl__stage { height: clamp(18rem, 62vw, 26rem); } }

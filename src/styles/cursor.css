@@ -1,0 +1,56 @@
+html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor [role='tab'] { cursor: none; }
+
+.cursor { position: fixed; inset: 0; pointer-events: none; z-index: 300; }
+.cursor__ring {
+  position: fixed; left: 0; top: 0; visibility: hidden; opacity: 0; border-radius: 50%;
+  width: 42px; height: 42px; margin: -21px 0 0 -21px;
+  display: grid; place-items: center; will-change: translate;
+}
+
+/* The kunai: 22px wide, its tip on the pointer (top of the svg = centre of the ring box). Rotation is set from JS. */
+.kunai {
+  position: absolute; left: 50%; top: 50%; width: 22px; height: 58px; margin-left: -11px; overflow: visible;
+  transform-origin: 50% 0; transition: scale 0.3s var(--ease-cine), opacity 0.3s;
+  filter: drop-shadow(0 0 3px var(--glow)) drop-shadow(0 0 8px var(--glow-b));
+}
+.kunai__blade { stroke: var(--glow); stroke-width: 2; stroke-linejoin: round; }
+.kunai__fuller { fill: none; stroke: color-mix(in srgb, var(--glow-b) 70%, #fff); stroke-width: 1.5; stroke-linecap: round; opacity: 0.8; }
+.kunai__grip { fill: #17081f; stroke: var(--glow); stroke-width: 1.6; }
+.kunai__wrap { fill: none; stroke: var(--glow-b); stroke-width: 1.6; }
+.kunai__ring { fill: none; stroke: #fff; stroke-width: 3.6; }
+
+/* The flames burn behind the ring (the bottom of the svg), flickering out of step with each other. */
+.kunai__flame { transform-box: fill-box; transform-origin: 50% 0%; animation: kunai-flick 0.42s ease-in-out infinite; mix-blend-mode: normal; }
+.kunai__flame--l { animation-duration: 0.36s; animation-delay: -0.1s; }
+.kunai__flame--r { animation-duration: 0.47s; animation-delay: -0.22s; }
+@keyframes kunai-flick {
+  0%, 100% { transform: scaleY(1) skewX(0deg); opacity: 0.95; }
+  30% { transform: scaleY(1.3) skewX(5deg); opacity: 1; }
+  62% { transform: scaleY(0.82) skewX(-5deg); opacity: 0.8; }
+}
+
+/* Links: bigger and burning harder. Click: a quick stab. */
+.cursor--link .kunai { scale: 1.3; }
+.cursor--link .kunai__flame { animation-duration: 0.22s; }
+.cursor__ring.is-down .kunai { scale: 0.82; }
+.cursor__ring.is-down .kunai__flame { animation-duration: 0.14s; }
+.cursor--view .kunai { opacity: 0; }
+
+/* View mode keeps the disc + label */
+.cursor__ring::before {
+  content: ''; position: absolute; inset: -1px; border-radius: 50%;
+  transition: transform 0.45s var(--ease-cine), background-color 0.3s;
+}
+.cursor__label {
+  position: relative; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--paper-fixed); opacity: 0; transition: opacity 0.25s;
+}
+.cursor--link .cursor__ring::before { transform: scale(1.6); background: color-mix(in srgb, var(--glow) 12%, transparent); }
+.cursor--view .cursor__ring::before { transform: scale(2.3); background: var(--glow-b); box-shadow: 0 0 18px var(--glow); }
+.cursor--view .cursor__label { opacity: 1; }
+
+/* Embers shed from the tail while it moves (positioned and faded from JS). */
+.cursor__embers i {
+  position: fixed; left: 0; top: 0; width: 4px; height: 4px; margin: -2px 0 0 -2px; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 5px 1px var(--glow), 0 0 10px 2px var(--glow-b); visibility: hidden; opacity: 0;
+}

@@ -1,0 +1,8 @@
+.chapter { position: relative; display: grid; justify-items: center; text-align: center; margin: 0 auto clamp(3.5rem, 9vh, 6.5rem); max-width: 70rem; }
+.chapter__num {
+  font-weight: 800; font-variation-settings: 'wdth' 125; text-transform: uppercase; letter-spacing: 0.02em;
+  font-size: var(--step--1); margin-bottom: 1.8rem;
+}
+.chapter__title { font-size: var(--step-4); }
+.chapter__dingbats { font-size: clamp(1.1rem, 1.8vw, 1.8rem); margin-top: 1.4rem; }
+.chapter__lead { margin-top: 1.4rem; max-width: 34ch; font-size: var(--step-1); line-height: 1.35; color: var(--ash); }

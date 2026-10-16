@@ -1,0 +1,40 @@
+/* The 3-second opener (components/MotionIntro). Uses the page tokens, so it is black-void or paper-white with the theme. */
+.mi {
+  position: fixed; inset: 0; z-index: 1000; overflow: hidden; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--light-a), var(--light-b), var(--paper);
+  clip-path: inset(0% 0% 0% 0%);
+}
+
+/* a halftone dot field blooming behind the monogram (GSAP drives the wrapper; the dots sit on the pseudo) */
+.mi__dots { position: absolute; left: 50%; top: 46%; width: min(92vmin, 50rem); aspect-ratio: 1; translate: -50% -50%; pointer-events: none; }
+.mi__dots::before {
+  content: ''; position: absolute; inset: 0; opacity: 0.2;
+  background-image: radial-gradient(var(--black) 22%, transparent 25%); background-size: 15px 15px;
+  -webkit-mask-image: radial-gradient(closest-side, #000 10%, transparent 100%); mask-image: radial-gradient(closest-side, #000 10%, transparent 100%);
+}
+
+/* H ◐ M: the portrait stands in for the join, as in the logo */
+.mi__lock { position: relative; font-size: clamp(6.5rem, 25vw, 16rem); line-height: 0.9; }
+.mi__hm { display: block; word-spacing: 0.34em; }
+.mi__disc {
+  position: absolute; left: 50%; top: 52%; width: 0.78em; aspect-ratio: 1; translate: -50% -50%;
+  border-radius: 50%; background: var(--crimson); border: 0.035em solid var(--black);
+}
+.mi__face {
+  position: absolute; left: 50%; bottom: -0.02em; height: 150%; width: auto; max-width: none; translate: -50% 0;
+  clip-path: inset(-40% -10% 0 -10% round 0 0 0.39em 0.39em); /* free at the top, follows the disc at the bottom */
+  pointer-events: none; user-select: none;
+}
+
+.mi__script { margin: 0.2rem 0 0; font-family: var(--f-hand); font-weight: 700; font-size: clamp(2rem, 5.4vw, 3.4rem); line-height: 1; rotate: -3deg; color: var(--black); }
+.mi__name {
+  margin: 0.7rem 0 0; font-weight: 800; font-variation-settings: 'wdth' 125; font-size: var(--step--1); letter-spacing: 0.34em;
+  text-transform: uppercase; color: var(--ash);
+}
+
+.mi__skip {
+  position: absolute; z-index: 3; right: var(--gutter); top: 1.4rem; min-height: 44px; padding: 0 0.5rem;
+  font-size: var(--step--1); letter-spacing: 0.08em; color: var(--ash); text-decoration: underline; text-underline-offset: 4px;
+}
+.mi__skip:hover, .mi__skip:focus-visible { color: var(--black); }

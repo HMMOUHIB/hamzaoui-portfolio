@@ -19,8 +19,9 @@
 .mi__hm { display: block; word-spacing: 0.34em; }
 .mi__disc {
   position: absolute; left: 50%; top: 52%; width: 0.78em; aspect-ratio: 1; translate: -50% -50%;
-  border-radius: 50%; background: var(--crimson); border: 0.035em solid var(--black);
 }
+.mi__gems { position: absolute; inset: 0; border-radius: 50%; background: #000; }
+.mi__hm .split { filter: url(#jewel-silver-l); } /* the letters become rhinestones; the roses are separate canvases and stay as they are */
 .mi__face {
   position: absolute; left: 50%; bottom: -0.02em; height: 150%; width: auto; max-width: none; translate: -50% 0;
   clip-path: inset(-40% -10% 0 -10% round 0 0 0.39em 0.39em); /* free at the top, follows the disc at the bottom */

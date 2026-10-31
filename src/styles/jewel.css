@@ -1,0 +1,26 @@
+/* The jewelled logo (components/JewelDefs + Sparkles). Material = SVG filter on real glyphs; motion = twinkling glints. */
+.jewel-s { filter: url(#jewel-silver-s); }
+.jewel-l { filter: url(#jewel-silver-l); }
+.jewel-red-s { filter: url(#jewel-crimson-s); }
+.jewel-red-l { filter: url(#jewel-crimson-l); }
+
+/* four-point glint */
+.sparks { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.sparks i {
+  position: absolute; width: var(--s); height: var(--s); translate: -50% -50%; background: #fff;
+  clip-path: polygon(50% 0, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0 50%, 42% 42%);
+  filter: drop-shadow(0 0 0.12em #fff); opacity: 0; scale: 0;
+  animation: glint 3.4s ease-in-out var(--d) infinite;
+}
+@keyframes glint {
+  0%, 58%, 100% { opacity: 0; scale: 0; }
+  68% { opacity: 1; scale: 1; }
+  80% { opacity: 0.9; scale: 0.55; }
+  90% { opacity: 0.4; scale: 0.25; }
+}
+/* the opener lasts 3 s: glints come quicker and sooner than on the nav badge */
+.mi .sparks i { animation-duration: 1.9s; animation-delay: calc(var(--d) * 0.4); }
+@media (prefers-reduced-motion: reduce) {
+  .sparks i { animation: none; opacity: 0.85; scale: 0.7; }
+  .sparks i:nth-child(n + 4) { opacity: 0; }
+}

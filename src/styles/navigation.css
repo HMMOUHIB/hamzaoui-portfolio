@@ -15,22 +15,23 @@ html:not([data-intro='done']) .rail { opacity: 0; visibility: hidden; }
   color: var(--black); background: var(--paper-hi); border: 2px solid var(--black);
   box-shadow: 3px 3px 0 var(--black);
 }
-/* The logo: H ◐ M, the masked portrait standing in for the join between the letters (the same device as the O in the
-   hero's PORTF◯LIO), breaking out of its crimson disc at the top, with the Portfolio script beside it. */
-.brand { position: relative; display: inline-flex; align-items: center; gap: 0.65rem; padding: 0.3rem 1rem 0.3rem 0.7rem; text-decoration: none; }
-.brand__mono { display: inline-flex; align-items: center; }
-.brand__l { font-family: var(--f-display); font-weight: 900; font-variation-settings: 'wdth' 125; font-size: 1.75rem; line-height: 1; letter-spacing: -0.04em; }
-.brand__disc {
-  --d: 3rem; position: relative; flex: none; width: var(--d); height: var(--d); margin: 0 0.12rem;
-  border-radius: 50%; background: var(--crimson); border: 2px solid var(--black);
+/* The logo: H ◐ M in rhinestones and chrome (after src/ref/lganime.mp4): the same lock-up as before, the masked portrait
+   standing in for the join between the letters and breaking out of its crimson-gem disc at the top. It sits on a black
+   chip in both themes so the gems always read; the only motion is the twinkle (components/Sparkles). */
+.brand {
+  position: relative; display: inline-flex; align-items: center; gap: 0.7rem; padding: 0.35rem 1.05rem 0.35rem 0.8rem; text-decoration: none;
+  background: #07070b; color: #eceef5; border-color: #cfd4e1;
 }
+.brand__mono { position: relative; display: inline-flex; align-items: center; font-size: 2.1rem; }
+.brand__l { font-family: var(--f-display); font-weight: 900; font-variation-settings: 'wdth' 125; font-size: 1em; line-height: 1; letter-spacing: -0.04em; color: #fff; padding: 0.04em 0.02em; }
+.brand__disc { --d: 0.92em; position: relative; flex: none; width: var(--d); height: var(--d); margin: 0 0.08em; }
+.brand__gems { position: absolute; inset: 0; border-radius: 50%; background: #000; }
 .brand__face {
-  position: absolute; left: 50%; bottom: -3px; height: 150%; width: auto; max-width: none; translate: -50% 0;
-  clip-path: inset(-40% -10% 0 -10% round 0 0 1.5rem 1.5rem); /* the head is free at the top, the bottom follows the disc */
-  pointer-events: none; user-select: none; transition: translate 0.5s var(--ease-cine), rotate 0.5s var(--ease-cine);
+  position: absolute; left: 50%; bottom: 0.03em; height: 150%; width: auto; max-width: none; translate: -50% 0;
+  clip-path: inset(-40% -10% 0 -10% round 0 0 0.46em 0.46em); /* the head is free at the top, the bottom follows the disc */
+  pointer-events: none; user-select: none;
 }
-.brand:hover .brand__face, .brand:focus-visible .brand__face { translate: -50% -4px; rotate: -4deg; }
-.brand__jp { font-family: var(--f-hand); font-weight: 700; font-size: 1.05rem; line-height: 1; }
+.brand__jp { font-family: var(--f-hand); font-weight: 700; font-size: 1.1rem; line-height: 1; color: #eceef5; }
 
 .menu-toggle {
   display: inline-flex; align-items: center; gap: 0.7rem; min-height: 44px; padding: 0 0.9rem;

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap, useGSAP } from '../animations/gsap'
-import { riseChars } from '../animations/textAnimations'
 import { identity } from '../data/identity'
 import GardenTitle from './GardenTitle'
+import Sparkles from './Sparkles'
 import { useScroll } from './SmoothScroll'
 import maskMe from '../assets/zine/hollow-me.webp'
+import '../styles/jewel.css'
 import '../styles/motionintro.css'
 
 const WIPE_AT = 2.45 // the overlay starts lifting; the whole opener is 3.0s
@@ -33,8 +34,9 @@ export default function MotionIntro() {
     const tl = gsap.timeline({ onComplete: () => { handOver(); setGone(true) } })
     tlRef.current = tl
     tl.fromTo(q('.mi__dots'), { autoAlpha: 0, scale: 0.55 }, { autoAlpha: 1, scale: 1, duration: 1.4, ease: 'power2.out' }, 0)
-      .add(riseChars(q('.mi__hm .char'), { duration: 0.7, stagger: 0.08 }), 0.05)
-      .fromTo(q('.mi__disc'), { scale: 0, rotate: -70 }, { scale: 1, rotate: 0, duration: 0.7, ease: 'back.out(1.9)' }, 0.5)
+      .fromTo(q('.mi__hm .char'), { yPercent: 115 }, { yPercent: 0, duration: 0.8, ease: 'expo.out', stagger: 0.08 }, 0.05)
+      .fromTo(q('.mi__disc'), { scale: 0 }, { scale: 1, duration: 0.7, ease: 'back.out(1.9)' }, 0.5)
+      .fromTo(q('.mi__lock .sparks'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 0.8)
       .fromTo(q('.mi__face'), { yPercent: 28 }, { yPercent: 0, duration: 0.6, ease: 'back.out(2)' }, 0.7)
       .fromTo(q('.mi__script'), { clipPath: 'inset(-20% 100% -20% 0%)' }, { clipPath: 'inset(-20% -12% -20% 0%)', duration: 0.6, ease: 'power2.out' }, 1.5)
       .fromTo(q('.mi__name'), { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.5 }, 1.7)
@@ -59,7 +61,11 @@ export default function MotionIntro() {
       <span className="mi__dots" aria-hidden="true" />
       <div className="mi__lock" aria-hidden="true">
         <GardenTitle as="div" className="mi__hm" text="H M" garden="intro" />
-        <span className="mi__disc"><img className="mi__face" src={maskMe} alt="" draggable="false" /></span>
+        <span className="mi__disc">
+          <span className="mi__gems jewel-red-l" />
+          <img className="mi__face" src={maskMe} alt="" draggable="false" />
+        </span>
+        <Sparkles />
       </div>
       <p className="mi__script" aria-hidden="true">Portfolio</p>
       <p className="mi__name" aria-hidden="true">{identity.firstName} {identity.lastName}</p>

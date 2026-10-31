@@ -1,5 +1,6 @@
 import About from './components/About'
 import Atmosphere from './components/Atmosphere'
+import JewelDefs from './components/JewelDefs'
 import MotionIntro from './components/MotionIntro'
 import ThemeToggle from './components/ThemeToggle'
 import Arsenal from './components/Arsenal'
@@ -18,6 +19,7 @@ import { ribbons } from './data/ribbons'
 export default function App() {
   return (
     <>
+      <JewelDefs />
       <Atmosphere />
       <ThemeToggle />
       <SmoothScroll>

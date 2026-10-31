@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, LazyMotion, domAnimation, m as motion } from 'motion/react'
 import { chapters, identity } from '../data/identity'
 import maskMe from '../assets/zine/hollow-me.webp'
+import Sparkles from './Sparkles'
+import '../styles/jewel.css'
 import { useScroll } from './SmoothScroll'
 import { gsap, ScrollTrigger, useGSAP } from '../animations/gsap'
 import { useReducedMotion } from '../hooks/useMediaQuery'
@@ -69,9 +71,13 @@ export default function Navigation() {
           aria-label={`${identity.lastName} ${identity.firstName} — back to top`}
         >
           <span className="brand__mono" aria-hidden="true">
-            <span className="brand__l">H</span>
-            <span className="brand__disc"><img className="brand__face" src={maskMe} alt="" draggable="false" /></span>
-            <span className="brand__l">M</span>
+            <span className="brand__l jewel-s">H</span>
+            <span className="brand__disc">
+              <span className="brand__gems jewel-red-s" />
+              <img className="brand__face" src={maskMe} alt="" draggable="false" />
+            </span>
+            <span className="brand__l jewel-s">M</span>
+            <Sparkles />
           </span>
           <span className="brand__jp" aria-hidden="true">Portfolio</span>
         </a>

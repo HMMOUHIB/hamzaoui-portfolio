@@ -1,5 +1,13 @@
 /* Dust and halftone behind the page (components/Atmosphere) */
-.atmo { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+/* Dust and halftone behind the page (components/Atmosphere): layers drawn once, moved and faded with transforms/opacity only */
+.atmo { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; contain: strict; }
+.atmo__shape { position: absolute; left: 0; top: 0; will-change: transform; }
+.atmo__dust { position: absolute; left: 0; top: 0; width: 100%; height: 110%; will-change: transform, opacity; }
+.atmo__dust--far { animation: dust-drift 90s linear infinite, dust-pulse 4.3s ease-in-out infinite alternate; }
+.atmo__dust--near { animation: dust-drift 55s linear infinite reverse, dust-pulse 3.1s ease-in-out -1.4s infinite alternate; }
+@keyframes dust-drift { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, -6%, 0); } }
+@keyframes dust-pulse { from { opacity: 0.45; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .atmo__dust { animation: none; } }
 
 /* The "invert" switch: tiny mono label bottom-right, like the reference */
 .theme {

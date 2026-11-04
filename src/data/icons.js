@@ -5,6 +5,7 @@ import {
   SiReact, SiJavascript, SiHtml5, SiCss, SiGreensock, SiFramer, SiThreedotjs, SiMui,
   SiPhp, SiSymfony, SiSpringboot, SiMysql, SiLinux, SiTerraform, SiKubernetes,
   SiGit, SiGithub, SiFigma, SiRedhat,
+  SiNestjs, SiNextdotjs, SiPostgresql, SiDocker, SiGithubactions, SiTypescript,
 } from 'react-icons/si'
 import { FaAws, FaJava, FaLinkedinIn } from 'react-icons/fa6'
 import {
@@ -36,6 +37,12 @@ const REGISTRY = {
   'REST APIs': [TbApi, '#ff6c37'],
   MySQL: [SiMysql, '#4db6e6'],
   'AI integration': [TbSparkles, '#c084fc'],
+  NestJS: [SiNestjs, '#e0234e'],
+  'Next.js': [SiNextdotjs, PAPER],
+  TypeScript: [SiTypescript, '#3178c6'],
+  PostgreSQL: [SiPostgresql, '#4f8fd8'],
+  Docker: [SiDocker, '#2496ed'],
+  'GitHub Actions': [SiGithubactions, '#2088ff'],
   // Infrastructure
   Linux: [SiLinux, '#fcc624'],
   Networking: [TbNetwork, '#22d3ee'],

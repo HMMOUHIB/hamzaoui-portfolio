@@ -1,5 +1,6 @@
 import careerShot from '../assets/cards/careerhive.webp'
 import auraShot from '../assets/cards/aura.webp'
+import cloudopsShot from '../assets/cards/cloudops.webp'
 
 export const projects = [
 {
@@ -41,8 +42,30 @@ export const projects = [
     cta: 'More on GitHub',
   },
   {
-    id: 'nexos',
+    id: 'cloudops',
     num: '03',
+    name: 'CloudOps',
+    title: ['Cloud', 'Ops'],
+    kanji: '雲',
+    visual: 'nexus',
+    shot: cloudopsShot, // mockup of github.com/HMMOUHIB/first-nest-js
+    role: 'DevOps & Full-Stack — academic project, built solo',
+    stack: ['NestJS', 'Next.js', 'PostgreSQL', 'Docker', 'GitHub Actions', 'TypeScript'],
+    summary:
+      'CloudOps Manager: a platform to run projects, teams, servers, applications, monitoring, alerts and incidents. NestJS API and Next.js app on PostgreSQL, shipped as Docker containers through a GitHub Actions pipeline.',
+    points: [
+      'CI/CD pipeline',
+      'Docker Compose (db · api · web)',
+      'JWT auth & role guards',
+      'Unit + e2e tests on real PostgreSQL',
+      'Swagger / OpenAPI docs',
+    ],
+    url: 'https://github.com/HMMOUHIB/first-nest-js',
+    cta: 'View on GitHub',
+  },
+  {
+    id: 'nexos',
+    num: '04',
     name: 'Nexos',
     title: ['Nex', 'os'],
     kanji: '結',

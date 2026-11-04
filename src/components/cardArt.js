@@ -1,3 +1,4 @@
+import { projects } from '../data/projects'
 // Paints a project as a trading-card face (630x880, drawn at 2x) for HoloCard to put foil on.
 const W = 630
 const H = 880
@@ -168,7 +169,7 @@ export default async function drawCard(project) {
   // footer: illustrator, flavour, collector number
   c.fillStyle = INK; c.font = `700 22px ${HAND}`; c.fillText('Illus. Hamzaoui', 44, 826)
   c.font = `600 12px ${DISPLAY}`; c.textAlign = 'right'
-  c.fillText(`${project.num}/03  ·  © 2026`, 586, 826); c.textAlign = 'left'
+  c.fillText(`${project.num}/${String(projects.length).padStart(2, '0')}  ·  © 2026`, 586, 826); c.textAlign = 'left'
 
   return canvas.toDataURL('image/png')
 }

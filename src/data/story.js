@@ -21,7 +21,7 @@ export const story = [
     facts: [
       { icon: 'story-freelance', when: '2024 — Present', title: 'Freelance Web Developer', org: 'Independent' },
       { icon: 'story-intern', when: '2025', title: 'Full-Stack Developer Intern — Final Year Project', org: 'Medianet' },
-      { icon: 'story-projects', when: '2023 — Present', title: 'Personal projects', org: 'Career Hive, Aura Store, Nexos' },
+      { icon: 'story-projects', when: '2023 — Present', title: 'Personal projects', org: 'Career Hive, Aura Store, CloudOps Manager' },
     ],
   },
   {

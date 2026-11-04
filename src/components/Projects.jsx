@@ -11,7 +11,7 @@ export default function Projects() {
         num="04"
         garden="work"
         title="The work"
-        lead={['Four builds.', 'Each one asked for a different blade.']}
+        lead={['Three builds.', 'Each one asked for a different blade.']}
       />
       <div className="work__list">
         {projects.map((p, i) => <ProjectCard project={p} index={i} key={p.id} />)}

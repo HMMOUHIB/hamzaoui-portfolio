@@ -35,7 +35,7 @@ export const timeline = [
 export const experience = [
   { period: '2024 — Present', role: 'Freelance Web Developer', org: 'Independent' },
   { period: '2025', role: 'Full-Stack Developer Intern — Final Year Project', org: 'Medianet' },
-  { period: '2023 — Present', role: 'Personal projects', org: 'Career Hive, Aura Store, Nexos' },
+  { period: '2023 — Present', role: 'Personal projects', org: 'Career Hive, Aura Store, CloudOps Manager' },
 ]
 
 // The working loop, taken from the Medianet internship scope.

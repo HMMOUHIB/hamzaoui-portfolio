@@ -63,18 +63,4 @@ export const projects = [
     url: 'https://github.com/HMMOUHIB/first-nest-js',
     cta: 'View on GitHub',
   },
-  {
-    id: 'nexos',
-    num: '04',
-    name: 'Nexos',
-    title: ['Nex', 'os'],
-    kanji: '結',
-    visual: 'nexus',
-    role: 'Personal project',
-    stack: [],
-    summary: 'A personal project currently in the works. The full write-up arrives when it ships.',
-    points: [],
-    url: 'https://github.com/HMMOUHIB',
-    cta: 'Follow on GitHub',
-  },
 ]

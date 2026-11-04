@@ -48,7 +48,7 @@ export const projects = [
     title: ['Cloud', 'Ops'],
     kanji: '雲',
     visual: 'nexus',
-    shot: cloudopsShot, // mockup of github.com/HMMOUHIB/first-nest-js
+    shot: cloudopsShot, // mockup of the CloudOps app (github.com/HMMOUHIB/first-nest-js)
     role: 'DevOps & Full-Stack — academic project, built solo',
     stack: ['NestJS', 'Next.js', 'PostgreSQL', 'Docker', 'GitHub Actions', 'TypeScript'],
     summary:
@@ -60,7 +60,7 @@ export const projects = [
       'Unit + e2e tests on real PostgreSQL',
       'Swagger / OpenAPI docs',
     ],
-    url: 'https://github.com/HMMOUHIB/first-nest-js',
-    cta: 'View on GitHub',
+    url: 'https://first-nest-js.vercel.app/',
+    cta: 'Open the live app',
   },
 ]

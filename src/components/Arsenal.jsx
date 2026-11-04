@@ -157,7 +157,7 @@ export default function Arsenal() {
         id="arsenal-title"
         num="03"
         garden="arsenal"
-        title="Arsenal"
+        title="Omnitrix"
         lead={['No percentages.', 'Only what has been used to ship.']}
       />
 

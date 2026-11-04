@@ -12,8 +12,8 @@ export const GARDENS = {
   education: { seed: 23, flowers: ['daisy'], flower: '#fff6e0', core: '#ffb703', stem: '#1c2b8f', leaf: '#2547c4', roseP: 0.4, leafy: 0.8, dens: 0.6, bridgeP: 0.3, reach: 1.2, big: 1.15, stagger: 90 },
   // Shrikhand · magenta tulips on plum
   mind:      { seed: 37, flowers: ['tulip'], flower: '#d11fd0', stem: '#4a1d6b', leaf: '#6b2a9a', roseP: 0.3, curvy: 1.5, bridgeP: 0.95, reach: 0.8, stagger: 180 },
-  // Bagel Fat One · sunflowers on forest green
-  arsenal:   { seed: 41, flowers: ['sunflower'], flower: '#ffc107', core: '#6b3f12', stem: '#14532d', leaf: '#1f7a3f', roseP: 0.35, dens: 1.2, reach: 0.7, big: 1.1, stagger: 110 },
+  // Bagel Fat One · glowing green blooms on deep green (the Omnitrix chapter)
+  arsenal:   { seed: 41, flowers: ['sunflower'], flower: '#39ff6a', core: '#0a3d1c', stem: '#0f3d22', leaf: '#166534', roseP: 0.35, dens: 1.2, reach: 0.7, big: 1.1, stagger: 110 },
   // Rozha One · orange poppies on olive
   work:      { seed: 53, flowers: ['poppy'], flower: '#ff5a1f', core: '#1a1a1a', stem: '#3b4a12', leaf: '#56701c', roseP: 0.85, dens: 0.65, big: 1.1, reach: 0.65, bridgeP: 0.4, stagger: 220 },
   // Gloock · pink lotus on teal

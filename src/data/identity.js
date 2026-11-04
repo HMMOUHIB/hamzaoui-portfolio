@@ -20,7 +20,7 @@ export const identity = {
 export const chapters = [
   { id: 'origin', num: '01', title: 'Origin', kanji: '起源' },
   { id: 'mind', num: '02', title: 'Mind', kanji: '思考' },
-  { id: 'arsenal', num: '03', title: 'Arsenal', kanji: '武器庫' },
+  { id: 'arsenal', num: '03', title: 'Omnitrix', kanji: '武器庫' },
   { id: 'work', num: '04', title: 'Work', kanji: '作品' },
   { id: 'evolution', num: '05', title: 'Evolution', kanji: '進化' },
   { id: 'next', num: '06', title: 'Next world', kanji: '新世界' },

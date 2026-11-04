@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
+import NetworkFallback from './NetworkFallback'
 import capsuleUrl from '../assets/3d/capsule-web.glb?url'
 
 /**
@@ -10,12 +11,19 @@ import capsuleUrl from '../assets/3d/capsule-web.glb?url'
  * left and blue from the right, come up with it, like the tiers lighting from the surface downward.
  * Renders only while visible; every GPU resource is disposed on unmount.
  */
-export default function NetworkScene({ progressRef }) {
+export default function NetworkScene({ progressRef, still = false }) {
   const mount = useRef(null)
+  const [failed, setFailed] = useState(false)
 
   useEffect(() => {
     const el = mount.current
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' })
+    let renderer
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' })
+    } catch {
+      setFailed(true) // no WebGL on this device: keep the static drawing
+      return
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     renderer.setClearColor(0x000000, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
@@ -65,7 +73,7 @@ export default function NetworkScene({ progressRef }) {
       model.position.sub(centre)
       group.scale.setScalar(2.3 / Math.max(size.x, size.y, size.z))
       group.add(model)
-    })
+    }, undefined, () => alive && setFailed(true))
 
     const mouse = { x: 0, y: 0 }
     const onMove = (e) => {
@@ -93,10 +101,10 @@ export default function NetworkScene({ progressRef }) {
       const p = progressRef?.current ?? 1
       red.intensity = 2 + 26 * Math.min(1, p * 1.6)
       blue.intensity = 2 + 26 * Math.max(0, Math.min(1, (p - 0.25) * 1.5))
-      rot += 0.0035
+      if (!still) rot += 0.0035
       group.rotation.y = rot + mouse.x * 0.35
       group.rotation.x += ((mouse.y * 0.16) - group.rotation.x) * 0.05
-      group.position.y = Math.sin(performance.now() / 1400) * 0.05 // a slow float
+      group.position.y = still ? 0 : Math.sin(performance.now() / 1400) * 0.05 // a slow float
       renderer.render(scene, camera)
     }
     const io = new IntersectionObserver(([e]) => {
@@ -123,7 +131,8 @@ export default function NetworkScene({ progressRef }) {
       renderer.forceContextLoss()
       renderer.domElement.remove()
     }
-  }, [progressRef])
+  }, [progressRef, still])
 
+  if (failed) return <NetworkFallback />
   return <div className="net" ref={mount} aria-hidden="true" />
 }

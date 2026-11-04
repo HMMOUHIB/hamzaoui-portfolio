@@ -1,7 +1,7 @@
 import { lazy, Suspense, useRef } from 'react'
 import { gsap, useGSAP } from '../animations/gsap'
 import { evolutionPath } from '../data/skills'
-import { useIsDesktop, useReducedMotion } from '../hooks/useMediaQuery'
+import { useReducedMotion } from '../hooks/useMediaQuery'
 import { useNearViewport } from '../hooks/useInView'
 import ChapterIntro from './ChapterIntro'
 import IconBox from './IconBox'
@@ -15,10 +15,10 @@ export default function Evolution() {
   const root = useRef(null)
   const path = useRef(null)
   const progressRef = useRef(0)
-  const desktop = useIsDesktop()
   const reduced = useReducedMotion()
   const near = useNearViewport(path, '600px')
-  const useWebGL = desktop && !reduced && near
+  // the capsule shows on every screen; reduced motion just holds it still
+  const useWebGL = near
 
   useGSAP(() => {
     const steps = gsap.utils.toArray('.evo__step', path.current)
@@ -77,7 +77,7 @@ export default function Evolution() {
           <div className="evo__viz-frame">
             {useWebGL ? (
               <Suspense fallback={<NetworkFallback />}>
-                <NetworkScene progressRef={progressRef} />
+                <NetworkScene progressRef={progressRef} still={reduced} />
               </Suspense>
             ) : (
               <NetworkFallback />

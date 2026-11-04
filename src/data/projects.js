@@ -38,8 +38,8 @@ export const projects = [
       'Security validation',
       'Aura AI Stylist',
     ],
-    url: 'https://github.com/HMMOUHIB',
-    cta: 'More on GitHub',
+    url: 'https://aura-store-e24q.onrender.com/',
+    cta: 'Visit the live store',
   },
   {
     id: 'cloudops',

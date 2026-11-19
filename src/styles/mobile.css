@@ -1,0 +1,171 @@
+/* ===========================================================================================================
+   The phone layout (under 900px). Loaded after every section stylesheet; desktop is untouched.
+   Same zine identity, rebuilt for one thumb: a bar that gets out of the way, a full-screen poster for the hero,
+   readable body copy, tighter chapter rhythm, and no 3D handheld to aim at.
+   =========================================================================================================== */
+
+/* hidden="" must win over component display rules (the timeline toggles parts of itself with it) */
+.tl [hidden] { display: none !important; }
+
+@media (max-width: 899px) {
+  :root {
+    /* body copy: 12–13px was too small to read on a phone */
+    --step--1: 0.86rem;
+    --step-0: 1rem;
+    --step-1: 1.12rem;
+    --sec-top: 4.5rem;
+    --sec-bottom: 4rem;
+    --bar-h: 4.25rem;
+  }
+
+  /* ---------- Top bar ------------------------------------------------------------------------------------ */
+  .topbar {
+    padding: max(0.65rem, env(safe-area-inset-top)) var(--gutter) 0.65rem;
+    transition: opacity 0.8s ease, visibility 0.8s, transform 0.45s var(--ease-cine);
+  }
+  /* the backing fades in once the page moves, so text no longer slides under bare chips */
+  .topbar::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: color-mix(in srgb, var(--paper) 80%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3);
+    border-bottom: 1px solid var(--line);
+    opacity: 0; transition: opacity 0.35s ease;
+  }
+  .topbar.is-scrolled::before { opacity: 1; }
+  .topbar.is-tucked { transform: translateY(-110%); }
+
+  .brand { gap: 0.5rem; padding: 0.25rem 0.75rem 0.25rem 0.6rem; box-shadow: 2px 2px 0 var(--black); }
+  .brand__mono { font-size: 1.6rem; }
+  .brand__jp { font-size: 0.95rem; }
+
+  .topbar__actions { display: flex; align-items: center; gap: 0.55rem; }
+  .menu-toggle { min-height: 44px; padding: 0 0.85rem; box-shadow: 2px 2px 0 var(--black); }
+
+  /* the "invert" pill leaves the bottom corner (it sat over the content) and joins the bar as a square key */
+  .theme {
+    position: static; width: 44px; height: 44px; min-height: 44px; padding: 0; gap: 0; justify-content: center;
+    font-size: 0; letter-spacing: 0; border-radius: 0;
+    color: var(--black); background: var(--paper-hi); border: 2px solid var(--black); box-shadow: 2px 2px 0 var(--black);
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+  .theme__icon { width: 1.2rem; height: 1.2rem; }
+
+  /* the menu sheet: bigger targets, a thumb-friendly close at the bottom of the list */
+  .sheet { padding: calc(var(--bar-h) + 1.5rem) var(--gutter) calc(2rem + env(safe-area-inset-bottom)); justify-content: flex-start; }
+  .sheet::before { top: var(--bar-h); }
+  .sheet__list a { padding: 0.85rem 0; min-height: 56px; align-items: center; }
+  .sheet__title { font-size: clamp(1.7rem, 8.5vw, 2.4rem); }
+
+  /* ---------- Section rhythm ----------------------------------------------------------------------------- */
+  .origin, .arsenal, .work, .evo, .nw { padding-top: var(--sec-top); padding-bottom: var(--sec-bottom); }
+  .origin { padding-top: 1rem; }
+  .chapter { margin-bottom: 2.75rem; }
+  .chapter__num { margin-bottom: 2.6rem; letter-spacing: 0.12em; } /* clear of the flowers that grow above the title */
+  .chapter__title { font-size: clamp(2.6rem, 13vw, 3.6rem); }
+  .chapter__dingbats { margin-top: 1rem; }
+  .chapter__lead { margin-top: 1rem; font-size: 1.05rem; max-width: 30ch; }
+
+  /* ---------- Hero: a full-screen poster ------------------------------------------------------------------ */
+  .mast {
+    min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding-top: calc(var(--bar-h) + 1.5rem); padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+  }
+  /* role and year stacked and centred, the role big enough to read */
+  .mast__kickers {
+    flex-direction: column; align-items: center; justify-content: center; gap: 0.35rem; text-align: center;
+    font-size: 0.78rem; letter-spacing: 0.18em; margin-bottom: calc(var(--word) * 0.55);
+  }
+  .mast__kickers > span:last-child { margin-top: 0.9rem; color: var(--crimson); }
+  .mast__role { font-size: clamp(1.25rem, 6vw, 1.6rem); letter-spacing: 0; }
+  .mast__dingbats { margin-top: calc(var(--word) * 1.35); font-size: 1.6rem; }
+  .mast__ctas { margin-top: 2.25rem; gap: 0.65rem; }
+  .mast__ctas .btn { --h: 3.5rem; }
+
+  /* ---------- Origin: hello, skills, experience ---------------------------------------------------------- */
+  .hello { gap: 2.25rem; }
+  .hello__col--fig { order: 2; max-width: 13.5rem; }
+  .hello__col:nth-child(2) { order: 1; }
+  .hello__col:nth-child(3) { order: 3; }
+  .hello__title { font-size: clamp(3.6rem, 18vw, 5rem); margin-bottom: 1rem; }
+  .hello__col p { font-size: 1rem; line-height: 1.65; max-width: none; }
+  .hello__head { font-size: 1.7rem; margin: 2rem 0 1rem; }
+  .hello__list { font-size: 0.98rem; gap: 1.25rem; }
+  .hello__list li { padding-left: 0.9rem; border-left: 2px solid var(--line); }
+  .hello__skills { grid-template-columns: repeat(3, minmax(0, 1fr)); justify-items: center; gap: 1.25rem 0.5rem; }
+  .origin .band { margin-top: 3rem; margin-bottom: 3.5rem; }
+
+  /* terminal + working loop */
+  .worklog { gap: 2.5rem; margin-bottom: 3.5rem; }
+  .term { rotate: 0deg; border-width: 0.45rem; }
+  .proc__title { font-size: 1.8rem; }
+  .proc__steps { gap: 1.75rem 1rem; }
+  .proc__label { font-size: 1.1rem; }
+  .proc__note { font-size: 0.9rem; max-width: none; }
+
+  /* the story, as a readable list in place of the 3D handheld */
+  .tl--plain::before {
+    content: 'The timeline'; display: block; margin-bottom: 1.5rem;
+    font-family: var(--f-hand); font-weight: 700; font-size: 1.8rem; line-height: 1;
+  }
+  .tl--plain .tl__track { gap: 1.75rem; }
+  .tl--plain .tl__item { padding-left: 1.1rem; border-left: 2px solid var(--crimson); gap: 0.35rem; }
+  .tl--plain .tl__year { font-size: 2.6rem; color: var(--black); -webkit-text-stroke: 0; }
+  .tl--plain .tl__item--future .tl__year { color: var(--crimson); }
+  .tl--plain .tl__card h3 { font-size: 1.12rem; font-weight: 700; }
+  .tl--plain .tl__place { font-size: 1.2rem; margin: 0.1rem 0 0.4rem; }
+  .tl--plain .tl__body { font-size: 0.98rem; line-height: 1.6; max-width: none; }
+
+  /* ---------- Mind: the butterflies stay inside the screen --------------------------------------------------- */
+  .mind { overflow-x: clip; }
+
+  /* ---------- Omnitrix --------------------------------------------------------------------------------------- */
+  .arsenal__core { max-width: 15rem; margin: 1.25rem auto 2.5rem; }
+
+  /* ---------- Work ------------------------------------------------------------------------------------------- */
+  .work__list { gap: 4.5rem; }
+  .work__shot { padding: 0 10%; }
+  .work__title { font-size: clamp(1.9rem, 9vw, 2.4rem); }
+  .work__role { font-size: 0.95rem; }
+  .work__stack { gap: 0.55rem 1rem; font-size: 0.92rem; }
+  .work__summary { font-size: 1rem; max-width: none; }
+  .work__points { font-size: 0.9rem; gap: 0.4rem 1rem; }
+  /* the text link becomes a full-width button you can hit with a thumb */
+  .work__cta {
+    display: flex; justify-content: center; width: 100%; min-height: 3.25rem;
+    border: 2px solid var(--black); background: var(--black); color: var(--paper); box-shadow: 3px 3px 0 var(--crimson);
+  }
+  .work__cta:hover, .work__cta:focus-visible { color: var(--paper); border-color: var(--black); gap: 0.6rem; }
+
+  /* ---------- Evolution -------------------------------------------------------------------------------------- */
+  .tf {
+    min-height: 0;
+    margin-top: calc(-1 * var(--sec-top)); margin-bottom: var(--sec-bottom);
+  }
+  .tf__figure { height: 68svh; max-width: 78vw; }
+  .tf__stage-word { font-size: clamp(2.6rem, 13vw, 4rem); }
+  .evo__body { gap: 2.5rem; }
+  .evo__viz-frame { rotate: 0deg; border-width: 0.45rem; }
+  .evo__name { font-size: clamp(1.15rem, 5.6vw, 1.5rem); }
+
+  /* ---------- Next world ------------------------------------------------------------------------------------- */
+  .nw__disclaimer { margin-bottom: 2rem; text-align: left; }
+  .nw__step { padding: 1rem 0; column-gap: 0.9rem; }
+  .nw__name { font-size: clamp(1.05rem, 5vw, 1.35rem); }
+  .nw__kind { font-size: 1.15rem; }
+
+  /* ---------- Contact + footer ------------------------------------------------------------------------------- */
+  .contact__headline { font-size: clamp(2rem, 9.6vw, 2.8rem); margin-bottom: 2rem; max-width: none; }
+  .contact__cta { width: 100%; }
+  .contact__links { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .contact__links a { min-height: 48px; }
+  .footer {
+    flex-direction: column; align-items: flex-start; gap: 1rem;
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* small phones (iPhone SE / 360px Androids) */
+@media (max-width: 380px) {
+  .brand__jp { display: none; }
+  .hello__title { font-size: 3.4rem; }
+}

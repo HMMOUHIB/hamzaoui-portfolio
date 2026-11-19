@@ -35,7 +35,7 @@ export default function Transformation() {
         scrollTrigger: {
           trigger: root.current,
           start: 'top top',
-          end: desktop ? '+=260%' : '+=180%',
+          end: desktop ? '+=260%' : '+=120%', // phones: a shorter interlude, less black screen to thumb through
           pin: true,
           scrub: 0.6,
           onRefresh: () => field.sample(),

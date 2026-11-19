@@ -69,7 +69,8 @@
 @media (min-width: 900px) { :root { --rail: 9rem; } }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { background: var(--paper); -webkit-text-size-adjust: 100%; }
+/* clip on the root too: on phones, overflow clipped only on <body> can still widen the layout viewport */
+html { background: var(--paper); -webkit-text-size-adjust: 100%; overflow-x: clip; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped, html.is-locked { overflow: hidden; }

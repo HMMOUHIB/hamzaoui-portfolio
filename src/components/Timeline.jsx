@@ -2,7 +2,7 @@ import { Component, lazy, Suspense, useEffect, useReducer, useRef, useState } fr
 import { handheld as COLS } from '../data/handheld'
 import { identity } from '../data/identity'
 import { timeline } from '../data/timeline'
-import { useReducedMotion } from '../hooks/useMediaQuery'
+import { useIsDesktop, useReducedMotion } from '../hooks/useMediaQuery'
 import { sfx, unlock } from './sfx'
 import '../styles/timeline.css'
 
@@ -59,6 +59,9 @@ export default function Timeline() {
   const [failed, setFailed] = useState(false)
   const stage = useRef(null)
   const reduced = useReducedMotion()
+  // phones get the story as a readable list: no 3D handheld to load, no eight-button pad to aim at
+  const desktop = useIsDesktop()
+  const plain = failed || !desktop
 
   useEffect(() => {
     const el = stage.current
@@ -107,8 +110,8 @@ export default function Timeline() {
   const detail = s.open ? item.parts.map((p) => `${p.label}: ${p.text}.`).join(' ') : ''
 
   return (
-    <div className="tl" onPointerDownCapture={unlock} onKeyDownCapture={unlock}>
-      <div className="tl__rail" role="group" aria-label="Jump to a year">
+    <div className={`tl${plain ? ' tl--plain' : ''}`} onPointerDownCapture={unlock} onKeyDownCapture={unlock}>
+      <div className="tl__rail" role="group" aria-label="Jump to a year" hidden={plain}>
         {COLS.map((c, i) => (
           <button
             key={c.year}
@@ -127,9 +130,9 @@ export default function Timeline() {
         tabIndex={0}
         onKeyDown={onKeyDown}
         aria-label="Story handheld. Enter switches it on and opens an item, arrow keys browse, Escape steps back. Drag to spin it."
-        hidden={failed}
+        hidden={plain}
       >
-        {near && !failed && (
+        {near && !plain && (
           <Boundary onFail={() => setFailed(true)}>
             <Suspense fallback={null}>
               <PspScene state={s} send={send} cols={COLS} name={NAME} active={inView} whole={whole} reduced={reduced} />
@@ -137,11 +140,11 @@ export default function Timeline() {
           </Boundary>
         )}
       </div>
-      <p className="tl__hint" aria-hidden="true">
+      <p className="tl__hint" aria-hidden="true" hidden={plain}>
         {s.focus ? 'Arrows browse · Enter opens · Esc steps back' : 'Click the PSP to zoom in · drag to spin'}
       </p>
 
-      {!failed && (
+      {!plain && (
         <div className="tl__pad" role="group" aria-label="Handheld buttons">
           {PAD.map(([type, glyph, label]) => (
             <button key={type} type="button" className={`tl__key tl__key--${type}`} aria-label={label} onClick={() => send({ type })}>
@@ -152,7 +155,7 @@ export default function Timeline() {
       )}
       <p className="sr-only" aria-live="polite">{say} {detail}</p>
 
-      <ol className={`tl__track ${failed ? '' : 'sr-only'}`}>
+      <ol className={`tl__track ${plain ? '' : 'sr-only'}`}>
         {timeline.map((t) => (
           <li className={`tl__item ${t.future ? 'tl__item--future' : ''}`} key={t.year}>
             <span className="tl__year" aria-hidden="true">{t.year}</span>

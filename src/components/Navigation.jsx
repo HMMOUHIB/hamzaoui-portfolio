@@ -7,7 +7,32 @@ import '../styles/jewel.css'
 import { useScroll } from './SmoothScroll'
 import { gsap, ScrollTrigger, useGSAP } from '../animations/gsap'
 import { useReducedMotion } from '../hooks/useMediaQuery'
+import ThemeToggle from './ThemeToggle'
 import '../styles/navigation.css'
+
+// Phones: the bar gets a backing once the page moves, slides away while reading down and comes back on the way up.
+function useBarState() {
+  const [bar, setBar] = useState({ scrolled: false, hidden: false })
+  useEffect(() => {
+    let last = window.scrollY
+    let raf = 0
+    const read = () => {
+      raf = 0
+      const y = window.scrollY
+      const dy = y - last
+      if (Math.abs(dy) < 6 && y > 24) return
+      last = y
+      setBar((b) => {
+        const next = { scrolled: y > 24, hidden: y > 160 && dy > 0 }
+        return next.scrolled === b.scrolled && next.hidden === b.hidden ? b : next
+      })
+    }
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(read) }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf) }
+  }, [])
+  return bar
+}
 
 export default function Navigation() {
   const [active, setActive] = useState('')
@@ -16,6 +41,7 @@ export default function Navigation() {
   const progress = useRef(null)
   const menuBtn = useRef(null)
   const reduced = useReducedMotion()
+  const bar = useBarState()
 
   // Active chapter: a thin band across the middle of the viewport.
   useEffect(() => {
@@ -63,12 +89,12 @@ export default function Navigation() {
 
   return (
     <>
-      <header className="topbar">
+      <header className={`topbar${bar.scrolled ? ' is-scrolled' : ''}${bar.hidden && !open ? ' is-tucked' : ''}`}>
         <a
           className="brand"
           href="#top"
           onClick={(e) => { e.preventDefault(); go('top') }}
-          aria-label={`${identity.lastName} ${identity.firstName} — back to top`}
+          aria-label={`HM Portfolio — ${identity.lastName} ${identity.firstName}, back to top`}
         >
           <span className="brand__mono" aria-hidden="true">
             <span className="brand__l jewel-s">H</span>
@@ -81,16 +107,19 @@ export default function Navigation() {
           </span>
           <span className="brand__jp" aria-hidden="true">Portfolio</span>
         </a>
-        <button
-          ref={menuBtn}
-          className="menu-toggle"
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen((o) => !o)}
-        >
-          <span className="menu-toggle__bars" aria-hidden="true"><i /><i /></span>
-          {open ? 'Close' : 'Menu'}
-        </button>
+        <div className="topbar__actions">
+          <ThemeToggle />
+          <button
+            ref={menuBtn}
+            className="menu-toggle"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen((o) => !o)}
+          >
+            <span className="menu-toggle__bars" aria-hidden="true"><i /><i /></span>
+            {open ? 'Close' : 'Menu'}
+          </button>
+        </div>
       </header>
 
       <nav className="rail" aria-label="Chapters">

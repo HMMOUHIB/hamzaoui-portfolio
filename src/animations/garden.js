@@ -307,6 +307,7 @@ export function plant(host, back, front, preset, reduced) {
   const ctx = { 0: back.getContext('2d'), 1: front.getContext('2d') }
   let letters = []; let W = 0; let H = 0; let raf = 0; let t0 = 0; let end = 0; let last = 0; let boilF = -1
   let alive = true; let started = false; let visible = true; let flowerMoving = false
+  const still = window.matchMedia('(hover: none)').matches
   const untrack = reduced ? () => {} : trackPointer()
 
   const measure = () => {
@@ -409,6 +410,9 @@ export function plant(host, back, front, preset, reduced) {
     const moving = lean(cr, dt) || flowerMoving
     const tick = Math.floor(now / 120)
     if (t > 0 && (t < end || moving || tick !== boilF)) { boilF = tick; render(t, now, cr, dt) }
+    // touch screens have no pointer to lean toward: once grown and settled, the garden holds still instead of
+    // redrawing its hand-drawn boil eight times a second for as long as it is on screen
+    if (still && t > end + 2600 && !moving) return
     raf = requestAnimationFrame(frame)
   }
   const wake = () => { if (!raf && alive && started && visible && !reduced) { last = 0; raf = requestAnimationFrame(frame) } }

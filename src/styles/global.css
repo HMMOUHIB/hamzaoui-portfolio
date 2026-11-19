@@ -181,3 +181,6 @@ section:focus, section:focus-visible { outline: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }
+
+/* sections well off screen (usePauseOffscreen) hold their looping animations; they resume where they stopped */
+[data-idle] *, [data-idle] *::before, [data-idle] *::after { animation-play-state: paused !important; }

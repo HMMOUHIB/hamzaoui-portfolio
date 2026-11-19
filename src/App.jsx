@@ -14,9 +14,11 @@ import Projects from './components/Projects'
 import SmoothScroll from './components/SmoothScroll'
 import Ribbon from './components/Ribbon'
 import { ribbons } from './data/ribbons'
+import usePauseOffscreen from './hooks/usePauseOffscreen'
 import './styles/mobile.css' // last of the section styles: the phone layout
 
 export default function App() {
+  usePauseOffscreen('main > *, footer.footer')
   return (
     <>
       <JewelDefs />

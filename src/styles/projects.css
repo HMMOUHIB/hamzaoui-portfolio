@@ -5,6 +5,7 @@
 }
 .work__item { display: grid; gap: clamp(1.5rem, 3vw, 2.4rem); }
 .work__shot { display: grid; place-items: center; text-decoration: none; }
+.work__slot { display: block; width: var(--hc-w); max-width: 100%; aspect-ratio: 63 / 88; } /* holds the card's place until it is built */
 
 .work__num { font-weight: 800; font-variation-settings: 'wdth' 125; text-transform: uppercase; font-size: var(--step--1); color: var(--crimson); }
 .work__title { font-size: clamp(1.6rem, 2.6vw, 2.8rem); margin: 0.35rem 0 0.6rem; }

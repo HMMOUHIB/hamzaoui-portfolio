@@ -11,18 +11,30 @@ export default function ProjectCard({ project, index }) {
   const root = useRef(null)
   const tilt = TILTS[index % TILTS.length]
   const [face, setFace] = useState()
+  // the card face (a canvas drawing) and its WebGL foil are built only when the card is about to scroll in:
+  // three of them at page load were the heaviest work on the first screen
+  const [near, setNear] = useState(false)
 
   useEffect(() => {
+    const el = root.current
+    if (!el || !('IntersectionObserver' in window)) { setNear(true); return }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setNear(true); io.disconnect() } }, { rootMargin: '900px 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!near) return
     let alive = true
     drawCard(project).then((url) => alive && setFace(url))
     return () => { alive = false }
-  }, [project])
+  }, [project, near])
 
   useGSAP(() => {
     const q = gsap.utils.selector(root)
     gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
       gsap.timeline({ scrollTrigger: { trigger: root.current, start: 'top 80%', once: true } })
-        .fromTo(q('.holo-card'), { autoAlpha: 0, y: -50, rotate: tilt * 3 }, { autoAlpha: 1, y: 0, rotate: 0, duration: 1, ease: 'back.out(1.4)' })
+        .fromTo(q('.work__shot'), { autoAlpha: 0, y: -50, rotate: tilt * 3 }, { autoAlpha: 1, y: 0, rotate: 0, duration: 1, ease: 'back.out(1.4)' })
         .fromTo(q('.work__detail'), { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, stagger: 0.06, duration: 0.6 }, 0.35)
     })
   }, { scope: root })
@@ -30,7 +42,9 @@ export default function ProjectCard({ project, index }) {
   return (
     <article className="work__item" ref={root} aria-labelledby={`${project.id}-title`}>
       <a className="work__shot" href={project.url} target="_blank" rel="noreferrer" tabIndex={-1} aria-hidden="true">
-        <HoloCard image={face} alt={`${project.name} project card`} style={{ '--hc-w': 'min(100%, 340px)' }} />
+        {near
+          ? <HoloCard image={face} alt={`${project.name} project card`} style={{ '--hc-w': 'min(100%, 340px)' }} />
+          : <span className="work__slot" style={{ '--hc-w': 'min(100%, 340px)' }} />}
       </a>
 
       <div className="work__info">

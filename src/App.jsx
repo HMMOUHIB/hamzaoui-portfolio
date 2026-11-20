@@ -10,6 +10,7 @@ import Hero from './components/Hero'
 import Mind from './components/Mind'
 import Navigation from './components/Navigation'
 import NextWorld from './components/NextWorld'
+import Parcours from './components/Parcours'
 import Projects from './components/Projects'
 import SmoothScroll from './components/SmoothScroll'
 import Ribbon from './components/Ribbon'
@@ -30,6 +31,7 @@ export default function App() {
         <main>
           <Hero />
           <About />
+          <Parcours />
           <Mind />
           <Arsenal />
           <Ribbon items={ribbons.afterArsenal} />
